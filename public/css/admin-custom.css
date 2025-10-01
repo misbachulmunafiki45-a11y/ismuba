@@ -1,0 +1,65 @@
+/* Admin visual tuning (less aggressive, avoid overriding content) */
+
+/* Keep default page background light for readability */
+.content-wrapper,
+.content,
+.content-header {
+    background-color: #f8fafc !important;
+}
+
+/* Card surfaces: light body, allow header to be themed per page */
+.card {
+    background-color: #ffffff !important;
+    border-color: #e3f2fd !important;
+}
+.card-body {
+    background-color: #f8fafc !important;
+}
+
+/* Prefer dark text to improve contrast */
+.card-title,
+.card-text,
+.table,
+.table th,
+.table td {
+    color: #1e293b !important; /* slate-800 */
+}
+
+/* Primary button palette */
+.btn-primary {
+    background-color: #1e4b7c !important;
+    border-color: #1e4b7c !important;
+}
+.btn-primary:hover {
+    background-color: #2c6aa7 !important;
+    border-color: #2c6aa7 !important;
+}
+
+/* Edit Profil page: make specific headers white (avoid global impact) */
+.admin-theme .profile-edit-page .card-header .card-title,
+.admin-theme .profile-edit-page .card-header .card-title i {
+    color: #ffffff !important;
+}
+
+/* Admin theme: restore blue background specifically for admin pages */
+.admin-theme .content-wrapper,
+.admin-theme .content-header,
+.admin-theme .content {
+    background-color: #1e4b7c !important;
+    background-image: linear-gradient(180deg, #2c6aa7 0%, #1e4b7c 100%) !important;
+}
+.admin-theme .main-footer {
+    background-color: #1e4b7c !important;
+    color: #ffffff !important;
+}
+
+/* Make page header title and breadcrumb white on admin pages */
+.admin-theme .content-header .m-0,
+.admin-theme .content-header h1,
+.admin-theme .content-header .breadcrumb,
+.admin-theme .content-header .breadcrumb a {
+    color: #ffffff !important;
+}
+.admin-theme .content-header h1 {
+    font-weight: 700 !important;
+}
