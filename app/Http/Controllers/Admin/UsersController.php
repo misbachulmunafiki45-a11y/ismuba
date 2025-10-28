@@ -36,6 +36,25 @@ class UsersController extends Controller
             'password' => Hash::make($validated['password']),
         ]);
 
-        return redirect()->route('admin.users.create')->with('success', 'Pengguna baru berhasil ditambahkan.');
+        // Redirect ke halaman Manajemen Akun setelah berhasil menambah pengguna
+        return redirect()->route('admin.account.index')->with('success', 'Pengguna baru berhasil ditambahkan.');
+    }
+
+    /**
+     * Delete an existing user.
+     */
+    public function destroy(User $user): RedirectResponse
+    {
+        // Cegah menghapus akun yang sedang login
+        if (auth()->id() === $user->id) {
+            return redirect()->route('admin.account.index')
+                ->with('error', 'Tidak dapat menghapus akun yang sedang login.');
+        }
+
+        $user->delete();
+
+        return redirect()->route('admin.account.index')
+            ->with('success', 'Akun berhasil dihapus.');
     }
 }
+?>

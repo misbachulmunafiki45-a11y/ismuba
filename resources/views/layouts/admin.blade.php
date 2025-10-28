@@ -84,23 +84,58 @@
                         <a href="#" class="nav-link active">
                             <i class="nav-icon fas fa-tachometer-alt"></i>
                             <p>
-                                Starter Pages
+                                Managemen Menu
                                 <i class="right fas fa-angle-left"></i>
                             </p>
                         </a>
                         <ul class="nav nav-treeview">
+
+                            <!-- Jadwal Sholat -->
                             <li class="nav-item">
-                                <a href="/admin" class="nav-link active">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Active Page</p>
+                                <a href="{{ route('admin.prayer.index') }}" class="nav-link">
+                                    <i class="nav-icon fas fa-calendar-alt"></i>
+                                    <p>Jadwal Sholat</p>
                                 </a>
                             </li>
+
+                            <!-- Tata Cara Sholat-->
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Inactive Page</p>
+                                <a href="{{ route('admin.prayer.howto.index') }}" class="nav-link">
+                                    <i class="nav-icon fas fa-praying-hands"></i>
+                                    <p>Tata Cara Sholat</p>
                                 </a>
                             </li>
+                                                     <!-- Tata Cara Sholat-->
+                            <li class="nav-item">
+                                <a href="{{ route('admin.funeral.howto.index') }}" class="nav-link">
+                                    <i class="nav-icon fas fa-book"></i>
+                                    <p>Kaifiyah Jenazah</p>
+                                </a>
+                            </li>
+
+                                                        <!-- Tata Cara Sholat-->
+                            <li class="nav-item">
+                                <a href="{{ route('admin.daily.prayers.index') }}" class="nav-link">
+                                    <i class="nav-icon fas fa-book-reader"></i>
+                                    <p>Bacaan Doa Harian</p>
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a href="{{ route('admin.materi.index') }}" class="nav-link">
+                                    <i class="nav-icon fas fa-graduation-cap"></i>
+                                    <p>Materi</p>
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a href="{{ route('admin.activity.photos.index') }}" class="nav-link">
+                                    <i class="nav-icon fas fa-images"></i>
+                                    <p>Foto Kegiatan</p>
+                                </a>
+                            </li>
+
+
                         </ul>
                     </li>
                     <!-- Manajemen Akun: satu tautan saja -->
@@ -108,15 +143,6 @@
                         <a href="{{ route('admin.account.index') }}" class="nav-link">
                             <i class="nav-icon fas fa-user-cog"></i>
                             <p>Manajemen Akun</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="nav-icon fas fa-th"></i>
-                            <p>
-                                Simple Link
-                                <span class="right badge badge-danger">New</span>
-                            </p>
                         </a>
                     </li>
                 </ul>
@@ -140,7 +166,7 @@
             </div>
         </div>
 
-        <div class="content">
+        <div class="content pb-2">
             <div class="container-fluid">
                 @yield('content')
             </div>
@@ -148,10 +174,9 @@
     </div>
 
     <aside class="control-sidebar control-sidebar-dark"></aside>
-
-    <footer class="main-footer">
+    <footer class="main-footer mt-4">
         <div class="float-right d-none d-sm-inline">ISMUBA STEMDA</div>
-        <strong>&copy; {{ date('Y') }} ISMUBA.</strong> All rights reserved.
+        <strong>&copy; {{ date('Y') }} ISMUBA.</strong> SMKS Muhammadiyah 2 Genteng
     </footer>
 </div>
 
