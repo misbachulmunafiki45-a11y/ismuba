@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class PrayerReading extends Model
+class WudhuReading extends Model
 {
     use HasFactory;
 

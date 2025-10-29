@@ -2,26 +2,26 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\PrayerReading;
+use App\Models\WudhuReading;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
-class TataCaraSholatController extends Controller
+class TataCaraWudhuController extends Controller
 {
     public function index()
     {
-        $readings = PrayerReading::orderBy('id', 'asc')->get();
-        return view('admin.tata_cara_sholat.index', compact('readings'));
+        $readings = WudhuReading::orderBy('id', 'asc')->get();
+        return view('admin.tata_cara_wudhu.index', compact('readings'));
     }
 
     public function create()
     {
-        return view('admin.tata_cara_sholat.create');
+        return view('admin.tata_cara_wudhu.create');
     }
 
-    public function edit(PrayerReading $reading)
+    public function edit(WudhuReading $reading)
     {
-        return view('admin.tata_cara_sholat.edit', compact('reading'));
+        return view('admin.tata_cara_wudhu.edit', compact('reading'));
     }
 
     public function store(Request $request)
@@ -36,10 +36,10 @@ class TataCaraSholatController extends Controller
 
         $imagePath = null;
         if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('tata_cara_sholat', 'public');
+            $imagePath = $request->file('image')->store('tata_cara_wudhu', 'public');
         }
 
-        $reading = PrayerReading::create([
+        WudhuReading::create([
             'title' => $data['title'],
             'arabic' => $data['arabic'],
             'latin' => $data['latin'],
@@ -47,10 +47,10 @@ class TataCaraSholatController extends Controller
             'image_path' => $imagePath,
         ]);
 
-        return redirect()->route('admin.prayer.howto.index')->with('status', 'Bacaan sholat berhasil ditambahkan');
+        return redirect()->route('admin.wudhu.howto.index')->with('status', 'Bacaan wudhu berhasil ditambahkan');
     }
 
-    public function update(Request $request, PrayerReading $reading)
+    public function update(Request $request, WudhuReading $reading)
     {
         $data = $request->validate([
             'title' => ['required', 'string', 'max:255'],
@@ -65,7 +65,7 @@ class TataCaraSholatController extends Controller
             if ($imagePath && Storage::disk('public')->exists($imagePath)) {
                 Storage::disk('public')->delete($imagePath);
             }
-            $imagePath = $request->file('image')->store('tata_cara_sholat', 'public');
+            $imagePath = $request->file('image')->store('tata_cara_wudhu', 'public');
         }
 
         $reading->update([
@@ -76,15 +76,15 @@ class TataCaraSholatController extends Controller
             'image_path' => $imagePath,
         ]);
 
-        return redirect()->route('admin.prayer.howto.index')->with('status', 'Bacaan sholat berhasil diperbarui');
+        return redirect()->route('admin.wudhu.howto.index')->with('status', 'Bacaan wudhu berhasil diperbarui');
     }
 
-    public function destroy(PrayerReading $reading)
+    public function destroy(WudhuReading $reading)
     {
         if ($reading->image_path && Storage::disk('public')->exists($reading->image_path)) {
             Storage::disk('public')->delete($reading->image_path);
         }
         $reading->delete();
-        return redirect()->route('admin.prayer.howto.index')->with('status', 'Bacaan sholat berhasil dihapus');
+        return redirect()->route('admin.wudhu.howto.index')->with('status', 'Bacaan wudhu berhasil dihapus');
     }
 }

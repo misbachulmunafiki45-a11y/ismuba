@@ -52,6 +52,7 @@
                                 <th style="width: 90px">Gambar</th>
                                 <th>Bacaan Sholat</th>
                                 <th>Latin</th>
+                                <th>Deskripsi</th>
                                 <th style="width: 100px; text-align:center;">Aksi</th>
                             </tr>
                         </thead>
@@ -71,6 +72,9 @@
                                         <span class="text-muted">{{ $reading->latin }}</span>
                                     </td>
                                     <td>
+                                        <span class="text-muted">{{ $reading->description }}</span>
+                                    </td>
+                                    <td>
                                         <div class="d-flex flex-column align-items-center">
                                             <a href="#" class="btn btn-sm btn-info mb-1 btn-detail" title="View" aria-label="View" style="width: 36px; display:inline-flex; align-items:center; justify-content:center;"><i class="fas fa-eye"></i></a>
                                             <a href="{{ route('admin.prayer.readings.edit', $reading) }}" class="btn btn-sm btn-primary mb-1" title="Edit" aria-label="Edit" style="width: 36px; display:inline-flex; align-items:center; justify-content:center;"><i class="fas fa-edit"></i></a>
@@ -80,7 +84,7 @@
                                 </tr>
                             @empty
                                 <tr class="empty-row">
-                                    <td colspan="6" class="text-center text-muted py-4">Belum ada data bacaan sholat.</td>
+                                    <td colspan="7" class="text-center text-muted py-4">Belum ada data bacaan sholat.</td>
                                 </tr>
                             @endforelse
                         </tbody>
@@ -113,6 +117,10 @@
                             <div class="form-group">
                                 <label for="inputLatin">Latin</label>
                                 <input id="inputLatin" name="latin" type="text" class="form-control" required placeholder="Masukkan transliterasi Latin">
+                            </div>
+                            <div class="form-group">
+                                <label for="inputDescription">Deskripsi</label>
+                                <textarea id="inputDescription" name="description" class="form-control" rows="3" placeholder="Masukkan deskripsi bacaan (opsional)"></textarea>
                             </div>
                             <div class="form-group">
                                 <label for="inputImage">Gambar (opsional)</label>
@@ -187,6 +195,10 @@
                             <div class="form-group">
                                 <label for="editLatin">Latin</label>
                                 <input id="editLatin" name="latin" type="text" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="editDescription">Deskripsi</label>
+                                <textarea id="editDescription" name="description" class="form-control" rows="3"></textarea>
                             </div>
                             <div class="form-group">
                                 <label for="editImage">Gambar (opsional)</label>

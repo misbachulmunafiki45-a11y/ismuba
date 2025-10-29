@@ -16,7 +16,7 @@ class AdminUserSeeder extends Seeder
             ['email' => 'admin@ismuba.local'],
             [
                 'name' => 'Admin',
-                'password' => Hash::make('Admin123'),
+                'password' => Hash::make('admin123'),
                 'email_verified_at' => now(),
                 'remember_token' => Str::random(10),
             ]

@@ -44,6 +44,10 @@
                         <input id="latin" name="latin" type="text" class="form-control" required placeholder="Masukkan transliterasi Latin" />
                     </div>
                     <div class="form-group">
+                        <label for="description">Deskripsi</label>
+                        <textarea id="description" name="description" class="form-control" rows="3" placeholder="Masukkan deskripsi bacaan (opsional)"></textarea>
+                    </div>
+                    <div class="form-group">
                         <label for="image">Gambar (opsional)</label>
                         <input id="image" name="image" type="file" accept="image/*" class="form-control-file" />
                     </div>

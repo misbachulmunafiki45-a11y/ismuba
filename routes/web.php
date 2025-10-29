@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\ProfileController as AdminProfileController;
 use App\Http\Controllers\Admin\UsersController;
 use App\Http\Controllers\Admin\PrayerScheduleController;
 use App\Http\Controllers\Admin\TataCaraSholatController;
+use App\Http\Controllers\Admin\TataCaraWudhuController;
 use App\Http\Controllers\Admin\KaifiyahJenazahController;
 use App\Http\Controllers\Admin\ActivityPhotoController;
 use Illuminate\Support\Facades\Route;
@@ -45,6 +46,14 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
     Route::get('/prayer-schedule/edit', [PrayerScheduleController::class, 'edit'])->name('prayer.edit');
     Route::post('/prayer-schedule', [PrayerScheduleController::class, 'update'])->name('prayer.update');
     Route::delete('/prayer-schedule/{schedule}', [PrayerScheduleController::class, 'destroy'])->name('prayer.destroy');
+
+    // Tata Cara Berwudhu (view + CRUD)
+    Route::get('/wudhu-howto', [TataCaraWudhuController::class, 'index'])->name('wudhu.howto.index');
+    Route::get('/wudhu-howto/readings/create', [TataCaraWudhuController::class, 'create'])->name('wudhu.readings.create');
+    Route::get('/wudhu-howto/readings/{reading}/edit', [TataCaraWudhuController::class, 'edit'])->name('wudhu.readings.edit');
+    Route::post('/wudhu-howto/readings', [TataCaraWudhuController::class, 'store'])->name('wudhu.readings.store');
+    Route::put('/wudhu-howto/readings/{reading}', [TataCaraWudhuController::class, 'update'])->name('wudhu.readings.update');
+    Route::delete('/wudhu-howto/readings/{reading}', [TataCaraWudhuController::class, 'destroy'])->name('wudhu.readings.destroy');
 
     // Tata Cara Sholat (view + CRUD)
     Route::get('/prayer-howto', [TataCaraSholatController::class, 'index'])->name('prayer.howto.index');

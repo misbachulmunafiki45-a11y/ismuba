@@ -98,6 +98,14 @@
                                 </a>
                             </li>
 
+                            <!-- Tata Cara Berwudhu (baru) -->
+                            <li class="nav-item">
+                                <a href="{{ route('admin.wudhu.howto.index') }}" class="nav-link">
+                                    <i class="nav-icon fas fa-tint"></i>
+                                    <p>Tata Cara Berwudhu</p>
+                                </a>
+                            </li>
+
                             <!-- Tata Cara Sholat-->
                             <li class="nav-item">
                                 <a href="{{ route('admin.prayer.howto.index') }}" class="nav-link">
