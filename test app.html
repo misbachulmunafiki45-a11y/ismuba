@@ -1,0 +1,1354 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aplikasi Edukasi Islam</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .desktop-nav {
+            display: none;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            border-radius: 20px;
+            margin: 20px 0;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .desktop-nav-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+        }
+
+        .desktop-nav-item {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .desktop-nav-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .desktop-nav-item.active {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            transform: translateY(-3px);
+        }
+
+        .desktop-nav-icon {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .desktop-nav-text {
+            font-size: 1rem;
+            font-weight: bold;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            padding-bottom: 20px;
+        }
+
+        .header {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 20px;
+            border-radius: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .header h1 {
+            color: #2c3e50;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 15px 0;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 45px rgba(0, 0, 0, 0.2);
+        }
+
+        .card h2 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.8rem;
+            text-align: center;
+        }
+
+        .item {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .item:hover {
+            transform: scale(1.02);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .item h3 {
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+        }
+
+        .arabic {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #fff;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+            margin: 10px 0;
+            text-align: center;
+        }
+
+        .translation {
+            font-style: italic;
+            opacity: 0.9;
+            margin-top: 8px;
+        }
+
+        .prayer-time {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+            text-align: center;
+            color: white;
+        }
+
+        .prayer-time h3 {
+            margin-bottom: 10px;
+            font-size: 1.5rem;
+        }
+
+        .time-display {
+            font-size: 2rem;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 20px;
+            background: #e0e0e0;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #36d1dc 0%, #5b86e5 100%);
+            transition: width 0.3s ease;
+        }
+
+        .quiz-container {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+        }
+
+        .quiz-question {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: #2c3e50;
+            font-weight: bold;
+        }
+
+        .quiz-options {
+            display: grid;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .quiz-option {
+            padding: 12px;
+            background: white;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .quiz-option:hover {
+            background: #f0f8ff;
+            border-color: #4facfe;
+        }
+
+        .quiz-option.correct {
+            background: #d4edda;
+            border-color: #28a745;
+        }
+
+        .quiz-option.incorrect {
+            background: #f8d7da;
+            border-color: #dc3545;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .certificate {
+            background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%);
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            margin: 20px 0;
+            border: 5px solid #007bff;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .certificate::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transform: rotate(45deg);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% {
+                transform: translateX(-100%) translateY(-100%) rotate(45deg);
+            }
+            50% {
+                transform: translateX(100%) translateY(100%) rotate(45deg);
+            }
+            100% {
+                transform: translateX(-100%) translateY(-100%) rotate(45deg);
+            }
+        }
+
+        .certificate-header {
+            color: #007bff;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .certificate-subtitle {
+            color: #6c757d;
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            font-style: italic;
+        }
+
+        .certificate-name {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #2c3e50;
+            margin: 20px 0;
+            padding: 15px 0;
+            border-top: 2px solid #007bff;
+            border-bottom: 2px solid #007bff;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 10px;
+        }
+
+        .certificate-content {
+            color: #495057;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin: 20px 0;
+        }
+
+        .certificate-achievement {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
+            font-size: 1.3rem;
+            font-weight: bold;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+        }
+
+        .certificate-date {
+            color: #6c757d;
+            font-size: 1rem;
+            margin-top: 30px;
+        }
+
+        .certificate-decorations {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 20px 0;
+        }
+
+        .certificate-seal {
+            width: 80px;
+            height: 80px;
+            background: radial-gradient(circle, #ffd700 0%, #ffb347 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: white;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .certificate-ribbon {
+            background: linear-gradient(135deg, #dc3545 0%, #fd7e14 100%);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .name-input {
+            padding: 15px;
+            border: 3px solid #007bff;
+            border-radius: 10px;
+            font-size: 1.5rem;
+            text-align: center;
+            width: 100%;
+            max-width: 400px;
+            margin: 20px 0;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .name-input:focus {
+            outline: none;
+            border-color: #0056b3;
+            box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+        }
+
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 10px;
+            display: none;
+            justify-content: space-around;
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 10px;
+            min-width: 60px;
+        }
+
+        .nav-item:hover {
+            background: rgba(102, 126, 234, 0.1);
+        }
+
+        .nav-item.active {
+            background: rgba(102, 126, 234, 0.2);
+        }
+
+        .nav-icon {
+            font-size: 1.5rem;
+            margin-bottom: 4px;
+        }
+
+        .nav-text {
+            font-size: 0.8rem;
+            color: #2c3e50;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            z-index: 1001;
+            animation: slideIn 0.5s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .dhikr-counter {
+            background: linear-gradient(135deg, #a8e6cf 0%, #88d8c0 100%);
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .counter-display {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #2c3e50;
+            margin: 15px 0;
+        }
+
+        .counter-btn {
+            background: #2c3e50;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            margin: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .counter-btn:hover {
+            background: #34495e;
+            transform: scale(1.05);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+                padding-bottom: 80px;
+            }
+
+            .bottom-nav {
+                display: flex;
+            }
+
+            .desktop-nav {
+                display: none;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .card {
+                padding: 20px;
+                margin: 10px 0;
+            }
+
+            .item {
+                padding: 12px;
+            }
+
+            .arabic {
+                font-size: 1.3rem;
+            }
+
+            .time-display {
+                font-size: 1.5rem;
+            }
+
+            .counter-display {
+                font-size: 2.5rem;
+            }
+
+            .certificate {
+                padding: 20px;
+            }
+
+            .certificate-header {
+                font-size: 1.8rem;
+            }
+
+            .certificate-name {
+                font-size: 1.5rem;
+            }
+
+            .certificate-seal {
+                width: 60px;
+                height: 60px;
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (min-width: 769px) {
+            .desktop-nav {
+                display: block;
+            }
+
+            .bottom-nav {
+                display: none;
+            }
+
+            .container {
+                padding-bottom: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 1.8rem;
+            }
+
+            .card {
+                padding: 15px;
+            }
+
+            .nav-text {
+                font-size: 0.7rem;
+            }
+
+            .nav-icon {
+                font-size: 1.3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🕌 Aplikasi Edukasi Islam</h1>
+            <p>Belajar Islam dengan mudah dan menyenangkan</p>
+        </div>
+
+        <!-- Desktop Navigation -->
+        <div class="desktop-nav">
+            <div class="desktop-nav-grid">
+                <div class="desktop-nav-item active" onclick="showSection('home')">
+                    <div class="desktop-nav-icon">🏠</div>
+                    <div class="desktop-nav-text">Home</div>
+                </div>
+                <div class="desktop-nav-item" onclick="showSection('rukun-iman')">
+                    <div class="desktop-nav-icon">🕌</div>
+                    <div class="desktop-nav-text">Rukun Iman</div>
+                </div>
+                <div class="desktop-nav-item" onclick="showSection('rukun-islam')">
+                    <div class="desktop-nav-icon">☪️</div>
+                    <div class="desktop-nav-text">Rukun Islam</div>
+                </div>
+                <div class="desktop-nav-item" onclick="showSection('doa')">
+                    <div class="desktop-nav-icon">🤲</div>
+                    <div class="desktop-nav-text">Doa Harian</div>
+                </div>
+                <div class="desktop-nav-item" onclick="showSection('dhikr')">
+                    <div class="desktop-nav-icon">📿</div>
+                    <div class="desktop-nav-text">Dzikir</div>
+                </div>
+                <div class="desktop-nav-item" onclick="showSection('quiz')">
+                    <div class="desktop-nav-icon">🧠</div>
+                    <div class="desktop-nav-text">Kuis</div>
+                </div>
+                <div class="desktop-nav-item" onclick="showSection('certificate')">
+                    <div class="desktop-nav-icon">🏆</div>
+                    <div class="desktop-nav-text">Sertifikat</div>
+                </div>
+            </div>
+        </div>
+        <div id="home" class="section">
+            <div class="prayer-time">
+                <h3>⏰ Waktu Shalat Hari Ini</h3>
+                <div class="time-display" id="currentTime">Loading...</div>
+                <p>Jangan lupa shalat tepat waktu!</p>
+            </div>
+
+            <div class="card">
+                <h2>📊 Progress Hafalan Hari Ini</h2>
+                <div>
+                    <p>Rukun Iman: <span id="imanProgress">0</span>/6</p>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="imanBar" style="width: 0%"></div>
+                    </div>
+                </div>
+                <div>
+                    <p>Rukun Islam: <span id="islamProgress">0</span>/5</p>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="islamBar" style="width: 0%"></div>
+                    </div>
+                </div>
+                <div>
+                    <p>Doa Harian: <span id="doaProgress">0</span>/10</p>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="doaBar" style="width: 0%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Rukun Iman Section -->
+        <div id="rukun-iman" class="section hidden">
+            <div class="card">
+                <h2>🕌 Rukun Iman</h2>
+                <div class="item" onclick="markAsLearned('iman', 0)">
+                    <h3>1. Beriman kepada Allah SWT</h3>
+                    <div class="arabic">آمَنْتُ بِاللَّهِ</div>
+                    <div class="translation">Aku beriman kepada Allah</div>
+                </div>
+                <div class="item" onclick="markAsLearned('iman', 1)">
+                    <h3>2. Beriman kepada Malaikat-malaikat Allah</h3>
+                    <div class="arabic">وَمَلَائِكَتِهِ</div>
+                    <div class="translation">Dan malaikat-malaikat-Nya</div>
+                </div>
+                <div class="item" onclick="markAsLearned('iman', 2)">
+                    <h3>3. Beriman kepada Kitab-kitab Allah</h3>
+                    <div class="arabic">وَكُتُبِهِ</div>
+                    <div class="translation">Dan kitab-kitab-Nya</div>
+                </div>
+                <div class="item" onclick="markAsLearned('iman', 3)">
+                    <h3>4. Beriman kepada Rasul-rasul Allah</h3>
+                    <div class="arabic">وَرُسُلِهِ</div>
+                    <div class="translation">Dan rasul-rasul-Nya</div>
+                </div>
+                <div class="item" onclick="markAsLearned('iman', 4)">
+                    <h3>5. Beriman kepada Hari Akhir</h3>
+                    <div class="arabic">وَالْيَوْمِ الْآخِرِ</div>
+                    <div class="translation">Dan hari akhir</div>
+                </div>
+                <div class="item" onclick="markAsLearned('iman', 5)">
+                    <h3>6. Beriman kepada Qada dan Qadar</h3>
+                    <div class="arabic">وَالْقَدَرِ خَيْرِهِ وَشَرِّهِ مِنَ اللَّهِ تَعَالَى</div>
+                    <div class="translation">Dan takdir yang baik dan buruk dari Allah Ta'ala</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Rukun Islam Section -->
+        <div id="rukun-islam" class="section hidden">
+            <div class="card">
+                <h2>☪️ Rukun Islam</h2>
+                <div class="item" onclick="markAsLearned('islam', 0)">
+                    <h3>1. Syahadat (Mengucapkan dua kalimat syahadat)</h3>
+                    <div class="arabic">أَشْهَدُ أَنْ لَا إِلَهَ إِلَّا اللَّهُ وَأَشْهَدُ أَنَّ مُحَمَّدًا رَسُولُ اللَّهِ</div>
+                    <div class="translation">Aku bersaksi bahwa tiada tuhan selain Allah dan aku bersaksi bahwa Muhammad adalah utusan Allah</div>
+                </div>
+                <div class="item" onclick="markAsLearned('islam', 1)">
+                    <h3>2. Shalat (Mendirikan shalat lima waktu)</h3>
+                    <div class="arabic">وَإِقَامِ الصَّلَاةِ</div>
+                    <div class="translation">Dan mendirikan shalat</div>
+                </div>
+                <div class="item" onclick="markAsLearned('islam', 2)">
+                    <h3>3. Zakat (Membayar zakat)</h3>
+                    <div class="arabic">وَإِيتَاءِ الزَّكَاةِ</div>
+                    <div class="translation">Dan menunaikan zakat</div>
+                </div>
+                <div class="item" onclick="markAsLearned('islam', 3)">
+                    <h3>4. Puasa (Puasa di bulan Ramadan)</h3>
+                    <div class="arabic">وَصَوْمِ رَمَضَانَ</div>
+                    <div class="translation">Dan puasa Ramadan</div>
+                </div>
+                <div class="item" onclick="markAsLearned('islam', 4)">
+                    <h3>5. Haji (Naik haji ke Baitullah)</h3>
+                    <div class="arabic">وَحَجِّ الْبَيْتِ مَنِ اسْتَطَاعَ إِلَيْهِ سَبِيلًا</div>
+                    <div class="translation">Dan haji ke Baitullah bagi yang mampu</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Doa Section -->
+        <div id="doa" class="section hidden">
+            <div class="card">
+                <h2>🤲 Doa-doa Harian</h2>
+                <div class="item" onclick="markAsLearned('doa', 0)">
+                    <h3>Doa Sebelum Makan</h3>
+                    <div class="arabic">اللَّهُمَّ بَارِكْ لَنَا فِيمَا رَزَقْتَنَا وَقِنَا عَذَابَ النَّارِ</div>
+                    <div class="translation">Ya Allah, berkahilah kami dalam rezeki yang Engkau berikan kepada kami dan peliharalah kami dari siksa neraka</div>
+                </div>
+                <div class="item" onclick="markAsLearned('doa', 1)">
+                    <h3>Doa Sesudah Makan</h3>
+                    <div class="arabic">الْحَمْدُ لِلَّهِ الَّذِي أَطْعَمَنَا وَسَقَانَا وَجَعَلَنَا مُسْلِمِينَ</div>
+                    <div class="translation">Segala puji bagi Allah yang telah memberi kami makan dan minum serta menjadikan kami orang-orang muslim</div>
+                </div>
+                <div class="item" onclick="markAsLearned('doa', 2)">
+                    <h3>Doa Sebelum Tidur</h3>
+                    <div class="arabic">اللَّهُمَّ بِاسْمِكَ أَمُوتُ وَأَحْيَا</div>
+                    <div class="translation">Ya Allah, dengan nama-Mu aku mati dan aku hidup</div>
+                </div>
+                <div class="item" onclick="markAsLearned('doa', 3)">
+                    <h3>Doa Bangun Tidur</h3>
+                    <div class="arabic">الْحَمْدُ لِلَّهِ الَّذِي أَحْيَانَا بَعْدَ مَا أَمَاتَنَا وَإِلَيْهِ النُّشُورُ</div>
+                    <div class="translation">Segala puji bagi Allah yang telah menghidupkan kami setelah mematikan kami dan kepada-Nya kebangkitan</div>
+                </div>
+                <div class="item" onclick="markAsLearned('doa', 4)">
+                    <h3>Doa Masuk Kamar Mandi</h3>
+                    <div class="arabic">اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْخُبُثِ وَالْخَبَائِثِ</div>
+                    <div class="translation">Ya Allah, aku berlindung kepada-Mu dari syaitan laki-laki dan perempuan</div>
+                </div>
+                <div class="item" onclick="markAsLearned('doa', 5)">
+                    <h3>Doa Keluar Kamar Mandi</h3>
+                    <div class="arabic">غُفْرَانَكَ</div>
+                    <div class="translation">Aku memohon ampunan-Mu</div>
+                </div>
+                <div class="item" onclick="markAsLearned('doa', 6)">
+                    <h3>Doa Masuk Masjid</h3>
+                    <div class="arabic">اللَّهُمَّ افْتَحْ لِي أَبْوَابَ رَحْمَتِكَ</div>
+                    <div class="translation">Ya Allah, bukakanlah untukku pintu-pintu rahmat-Mu</div>
+                </div>
+                <div class="item" onclick="markAsLearned('doa', 7)">
+                    <h3>Doa Keluar Masjid</h3>
+                    <div class="arabic">اللَّهُمَّ إِنِّي أَسْأَلُكَ مِنْ فَضْلِكَ وَرَحْمَتِكَ</div>
+                    <div class="translation">Ya Allah, aku memohon kepada-Mu dari karunia dan rahmat-Mu</div>
+                </div>
+                <div class="item" onclick="markAsLearned('doa', 8)">
+                    <h3>Doa Naik Kendaraan</h3>
+                    <div class="arabic">سُبْحَانَ الَّذِي سَخَّرَ لَنَا هَذَا وَمَا كُنَّا لَهُ مُقْرِنِينَ</div>
+                    <div class="translation">Maha Suci Allah yang telah menundukkan semua ini bagi kami padahal kami sebelumnya tidak mampu menguasainya</div>
+                </div>
+                <div class="item" onclick="markAsLearned('doa', 9)">
+                    <h3>Doa Bepergian</h3>
+                    <div class="arabic">اللَّهُمَّ إِنَّا نَسْأَلُكَ فِي سَفَرِنَا هَذَا الْبِرَّ وَالتَّقْوَى</div>
+                    <div class="translation">Ya Allah, kami memohon kepada-Mu dalam perjalanan kami ini kebaikan dan ketakwaan</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dhikr Section -->
+        <div id="dhikr" class="section hidden">
+            <div class="card">
+                <h2>📿 Dzikir Digital</h2>
+                <div class="dhikr-counter">
+                    <h3>Tasbih Digital</h3>
+                    <div class="arabic">سُبْحَانَ اللَّهِ</div>
+                    <div class="translation">Maha Suci Allah</div>
+                    <div class="counter-display" id="tasbihCount">0</div>
+                    <button class="counter-btn" onclick="incrementCounter('tasbih')">Klik untuk Tasbih</button>
+                    <button class="counter-btn" onclick="resetCounter('tasbih')">Reset</button>
+                </div>
+                
+                <div class="dhikr-counter">
+                    <h3>Tahmid Digital</h3>
+                    <div class="arabic">الْحَمْدُ لِلَّهِ</div>
+                    <div class="translation">Segala puji bagi Allah</div>
+                    <div class="counter-display" id="tahmidCount">0</div>
+                    <button class="counter-btn" onclick="incrementCounter('tahmid')">Klik untuk Tahmid</button>
+                    <button class="counter-btn" onclick="resetCounter('tahmid')">Reset</button>
+                </div>
+                
+                <div class="dhikr-counter">
+                    <h3>Takbir Digital</h3>
+                    <div class="arabic">اللَّهُ أَكْبَرُ</div>
+                    <div class="translation">Allah Maha Besar</div>
+                    <div class="counter-display" id="takbirCount">0</div>
+                    <button class="counter-btn" onclick="incrementCounter('takbir')">Klik untuk Takbir</button>
+                    <button class="counter-btn" onclick="resetCounter('takbir')">Reset</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quiz Section -->
+        <div id="quiz" class="section hidden">
+            <div class="card">
+                <h2>🧠 Kuis Interaktif</h2>
+                <div class="quiz-container">
+                    <div class="quiz-question" id="quizQuestion">Siapkah kamu untuk kuis?</div>
+                    <div class="quiz-options" id="quizOptions">
+                        <button class="btn" onclick="startQuiz()">Mulai Kuis</button>
+                    </div>
+                    <div id="quizScore" style="display:none;">
+                        <h3>Skor: <span id="scoreDisplay">0</span>/10</h3>
+                        <button class="btn" onclick="startQuiz()">Mulai Lagi</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Certificate Section -->
+        <div id="certificate" class="section hidden">
+            <div class="card">
+                <h2>🏆 Sertifikat Digital</h2>
+                <div class="certificate" id="certificateCard">
+                    <div class="certificate-header">🎖️ SERTIFIKAT PENGHARGAAN</div>
+                    <div class="certificate-subtitle">Aplikasi Edukasi Islam</div>
+                    
+                    <div class="certificate-decorations">
+                        <div class="certificate-seal">🏆</div>
+                        <div class="certificate-ribbon">LULUS</div>
+                    </div>
+                    
+                    <div class="certificate-content">
+                        <p><strong>Dengan ini menyatakan bahwa:</strong></p>
+                        <div class="certificate-name" id="studentName">
+                            <input type="text" placeholder="Masukkan nama lengkap" id="nameInput" class="name-input">
+                        </div>
+                        
+                        <div class="certificate-achievement">
+                            "Telah berhasil menyelesaikan pembelajaran<br>
+                            <strong>RUKUN IMAN DAN RUKUN ISLAM</strong><br>
+                            dengan penuh dedikasi dan semangat"
+                        </div>
+                        
+                        <div class="certificate-content">
+                            <p>Siswa/i telah menunjukkan pemahaman yang baik tentang:</p>
+                            <p>✓ 6 Rukun Iman &nbsp;&nbsp;&nbsp; ✓ 5 Rukun Islam &nbsp;&nbsp;&nbsp; ✓ Doa-doa Harian</p>
+                        </div>
+                        
+                        <div class="certificate-decorations">
+                            <div class="certificate-seal">📿</div>
+                            <div class="certificate-seal">🕌</div>
+                        </div>
+                    </div>
+                    
+                    <div class="certificate-date" id="certificateDate">
+                        Jakarta, <span id="currentDate"></span>
+                    </div>
+                    
+                    <div style="margin-top: 30px;">
+                        <button class="btn" onclick="generateCertificate()">🎉 Buat Sertifikat</button>
+                        <button class="btn" onclick="downloadCertificate()" id="downloadBtn" style="display:none;">📥 Download Sertifikat</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom Navigation -->
+    <div class="bottom-nav">
+        <div class="nav-item active" onclick="showSection('home')">
+            <div class="nav-icon">🏠</div>
+            <div class="nav-text">Home</div>
+        </div>
+        <div class="nav-item" onclick="showSection('rukun-iman')">
+            <div class="nav-icon">🕌</div>
+            <div class="nav-text">Rukun Iman</div>
+        </div>
+        <div class="nav-item" onclick="showSection('rukun-islam')">
+            <div class="nav-icon">☪️</div>
+            <div class="nav-text">Rukun Islam</div>
+        </div>
+        <div class="nav-item" onclick="showSection('doa')">
+            <div class="nav-icon">🤲</div>
+            <div class="nav-text">Doa</div>
+        </div>
+        <div class="nav-item" onclick="showSection('dhikr')">
+            <div class="nav-icon">📿</div>
+            <div class="nav-text">Dzikir</div>
+        </div>
+        <div class="nav-item" onclick="showSection('quiz')">
+            <div class="nav-icon">🧠</div>
+            <div class="nav-text">Kuis</div>
+        </div>
+        <div class="nav-item" onclick="showSection('certificate')">
+            <div class="nav-icon">🏆</div>
+            <div class="nav-text">Sertifikat</div>
+        </div>
+    </div>
+
+    <script>
+        // Data storage
+        let progressData = {
+            iman: new Array(6).fill(false),
+            islam: new Array(5).fill(false),
+            doa: new Array(10).fill(false)
+        };
+
+        let dhikrCounters = {
+            tasbih: 0,
+            tahmid: 0,
+            takbir: 0
+        };
+
+        let quizQuestions = [
+            {
+                question: "Berapa jumlah Rukun Iman?",
+                options: ["5", "6", "7", "8"],
+                correct: 1
+            },
+            {
+                question: "Berapa jumlah Rukun Islam?",
+                options: ["4", "5", "6", "7"],
+                correct: 1
+            },
+            {
+                question: "Rukun Iman yang pertama adalah?",
+                options: ["Beriman kepada Allah", "Beriman kepada Malaikat", "Beriman kepada Kitab", "Beriman kepada Rasul"],
+                correct: 0
+            },
+            {
+                question: "Rukun Islam yang pertama adalah?",
+                options: ["Shalat", "Zakat", "Syahadat", "Puasa"],
+                correct: 2
+            },
+            {
+                question: "Doa sebelum makan dimulai dengan?",
+                options: ["Alhamdulillah", "Allahumma", "Subhanallah", "Astagfirullah"],
+                correct: 1
+            },
+            {
+                question: "Berapa kali shalat wajib dalam sehari?",
+                options: ["3", "4", "5", "6"],
+                correct: 2
+            },
+            {
+                question: "Bulan puasa umat Islam adalah?",
+                options: ["Rajab", "Syaban", "Ramadan", "Syawal"],
+                correct: 2
+            },
+            {
+                question: "Tempat ibadah haji adalah?",
+                options: ["Masjid Nabawi", "Masjidil Haram", "Masjidil Aqsa", "Masjid Quba"],
+                correct: 1
+            },
+            {
+                question: "Malaikat yang bertugas meniup sangkakala adalah?",
+                options: ["Jibril", "Mikail", "Israfil", "Izrail"],
+                correct: 2
+            },
+            {
+                question: "Kitab suci umat Islam adalah?",
+                options: ["Taurat", "Injil", "Zabur", "Al-Quran"],
+                correct: 3
+            }
+        ];
+
+        let currentQuizIndex = 0;
+        let quizScore = 0;
+        let quizActive = false;
+
+        // Initialize app
+        document.addEventListener('DOMContentLoaded', function() {
+            updateTime();
+            updateProgress();
+            updateCurrentDate();
+            setInterval(updateTime, 1000);
+            setInterval(checkPrayerTime, 60000); // Check every minute
+            loadData();
+        });
+
+        // Update current date for certificate
+        function updateCurrentDate() {
+            const now = new Date();
+            const options = { 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+            };
+            document.getElementById('currentDate').textContent = now.toLocaleDateString('id-ID', options);
+        }
+
+        // Show section function
+        function showSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.add('hidden');
+            });
+            
+            // Show selected section
+            document.getElementById(sectionId).classList.remove('hidden');
+            
+            // Update navigation (both desktop and mobile)
+            document.querySelectorAll('.nav-item, .desktop-nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            // Find and activate the clicked navigation item
+            const clickedItem = event.target.closest('.nav-item, .desktop-nav-item');
+            if (clickedItem) {
+                clickedItem.classList.add('active');
+            }
+        }
+
+        // Update current time
+        function updateTime() {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString('id-ID', {
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            });
+            document.getElementById('currentTime').textContent = timeString;
+        }
+
+        // Check prayer time and show notification
+        function checkPrayerTime() {
+            const now = new Date();
+            const hour = now.getHours();
+            const minute = now.getMinutes();
+            
+            const prayerTimes = [
+                { name: 'Subuh', hour: 5, minute: 0 },
+                { name: 'Dzuhur', hour: 12, minute: 0 },
+                { name: 'Ashar', hour: 15, minute: 30 },
+                { name: 'Maghrib', hour: 18, minute: 0 },
+                { name: 'Isya', hour: 19, minute: 30 }
+            ];
+            
+            prayerTimes.forEach(prayer => {
+                if (hour === prayer.hour && minute === prayer.minute) {
+                    showNotification(`⏰ Waktunya Shalat ${prayer.name}!`);
+                }
+            });
+        }
+
+        // Show notification
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.className = 'notification';
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 5000);
+        }
+
+        // Mark item as learned
+        function markAsLearned(type, index) {
+            progressData[type][index] = !progressData[type][index];
+            updateProgress();
+            saveData();
+            
+            if (progressData[type][index]) {
+                showNotification('🎉 Bagus! Kamu telah mempelajari ini!');
+            }
+        }
+
+        // Update progress bars
+        function updateProgress() {
+            const imanCount = progressData.iman.filter(Boolean).length;
+            const islamCount = progressData.islam.filter(Boolean).length;
+            const doaCount = progressData.doa.filter(Boolean).length;
+            
+            document.getElementById('imanProgress').textContent = imanCount;
+            document.getElementById('islamProgress').textContent = islamCount;
+            document.getElementById('doaProgress').textContent = doaCount;
+            
+            document.getElementById('imanBar').style.width = (imanCount / 6) * 100 + '%';
+            document.getElementById('islamBar').style.width = (islamCount / 5) * 100 + '%';
+            document.getElementById('doaBar').style.width = (doaCount / 10) * 100 + '%';
+        }
+
+        // Dhikr counter functions
+        function incrementCounter(type) {
+            dhikrCounters[type]++;
+            document.getElementById(type + 'Count').textContent = dhikrCounters[type];
+            saveData();
+            
+            if (dhikrCounters[type] % 33 === 0) {
+                showNotification('🌟 Subhanallah! Kamu sudah dzikir ' + dhikrCounters[type] + ' kali!');
+            }
+        }
+
+        function resetCounter(type) {
+            dhikrCounters[type] = 0;
+            document.getElementById(type + 'Count').textContent = '0';
+            saveData();
+            showNotification('✨ Counter direset!');
+        }
+
+        // Quiz functions
+        function startQuiz() {
+            currentQuizIndex = 0;
+            quizScore = 0;
+            quizActive = true;
+            document.getElementById('quizScore').style.display = 'none';
+            showQuizQuestion();
+        }
+
+        function showQuizQuestion() {
+            if (currentQuizIndex >= quizQuestions.length) {
+                endQuiz();
+                return;
+            }
+            
+            const question = quizQuestions[currentQuizIndex];
+            document.getElementById('quizQuestion').textContent = `Pertanyaan ${currentQuizIndex + 1}: ${question.question}`;
+            
+            const optionsContainer = document.getElementById('quizOptions');
+            optionsContainer.innerHTML = '';
+            
+            question.options.forEach((option, index) => {
+                const optionElement = document.createElement('div');
+                optionElement.className = 'quiz-option';
+                optionElement.textContent = option;
+                optionElement.onclick = () => selectAnswer(index);
+                optionsContainer.appendChild(optionElement);
+            });
+        }
+
+        function selectAnswer(selectedIndex) {
+            if (!quizActive) return;
+            
+            const question = quizQuestions[currentQuizIndex];
+            const options = document.querySelectorAll('.quiz-option');
+            
+            options.forEach((option, index) => {
+                if (index === question.correct) {
+                    option.classList.add('correct');
+                } else if (index === selectedIndex && selectedIndex !== question.correct) {
+                    option.classList.add('incorrect');
+                }
+            });
+            
+            if (selectedIndex === question.correct) {
+                quizScore++;
+                showNotification('✅ Benar!');
+            } else {
+                showNotification('❌ Salah, coba lagi!');
+            }
+            
+            setTimeout(() => {
+                currentQuizIndex++;
+                showQuizQuestion();
+            }, 1500);
+        }
+
+        function endQuiz() {
+            quizActive = false;
+            document.getElementById('quizQuestion').textContent = 'Kuis Selesai!';
+            document.getElementById('quizOptions').innerHTML = '';
+            document.getElementById('scoreDisplay').textContent = quizScore;
+            document.getElementById('quizScore').style.display = 'block';
+            
+            if (quizScore >= 8) {
+                showNotification('🏆 Luar biasa! Kamu mendapat skor tinggi!');
+            } else if (quizScore >= 6) {
+                showNotification('👍 Bagus! Terus belajar ya!');
+            } else {
+                showNotification('💪 Jangan menyerah! Coba lagi!');
+            }
+        }
+
+        // Certificate functions
+        function generateCertificate() {
+            const name = document.getElementById('nameInput').value.trim();
+            if (!name) {
+                showNotification('❗ Masukkan nama lengkap terlebih dahulu!');
+                return;
+            }
+            
+            document.getElementById('nameInput').style.display = 'none';
+            document.getElementById('studentName').innerHTML = `<strong style="color: #007bff;">${name}</strong>`;
+            document.getElementById('downloadBtn').style.display = 'inline-block';
+            
+            // Add completion animation
+            const certificate = document.getElementById('certificateCard');
+            certificate.style.animation = 'pulse 0.5s ease-in-out';
+            
+            showNotification('🎉 Selamat! Sertifikat berhasil dibuat!');
+        }
+
+        function downloadCertificate() {
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            canvas.width = 1000;
+            canvas.height = 700;
+            
+            // Background gradient
+            const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+            gradient.addColorStop(0, '#ffffff');
+            gradient.addColorStop(1, '#f8f9fa');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Decorative border
+            ctx.strokeStyle = '#007bff';
+            ctx.lineWidth = 8;
+            ctx.strokeRect(30, 30, canvas.width - 60, canvas.height - 60);
+            
+            // Inner border
+            ctx.strokeStyle = '#6c757d';
+            ctx.lineWidth = 2;
+            ctx.strokeRect(50, 50, canvas.width - 100, canvas.height - 100);
+            
+            // Header
+            ctx.fillStyle = '#007bff';
+            ctx.font = 'bold 48px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText('🎖️ SERTIFIKAT PENGHARGAAN', canvas.width / 2, 140);
+            
+            // Subtitle
+            ctx.fillStyle = '#6c757d';
+            ctx.font = '24px Arial';
+            ctx.fillText('Aplikasi Edukasi Islam', canvas.width / 2, 180);
+            
+            // Content
+            ctx.fillStyle = '#333';
+            ctx.font = '28px Arial';
+            ctx.fillText('Dengan ini menyatakan bahwa:', canvas.width / 2, 250);
+            
+            // Name
+            ctx.fillStyle = '#007bff';
+            ctx.font = 'bold 42px Arial';
+            const studentName = document.getElementById('studentName').textContent;
+            ctx.fillText(studentName, canvas.width / 2, 320);
+            
+            // Achievement box
+            ctx.fillStyle = '#28a745';
+            ctx.fillRect(100, 350, canvas.width - 200, 120);
+            ctx.fillStyle = '#fff';
+            ctx.font = '24px Arial';
+            ctx.fillText('Telah berhasil menyelesaikan pembelajaran', canvas.width / 2, 385);
+            ctx.font = 'bold 28px Arial';
+            ctx.fillText('RUKUN IMAN DAN RUKUN ISLAM', canvas.width / 2, 420);
+            ctx.font = '22px Arial';
+            ctx.fillText('dengan penuh dedikasi dan semangat', canvas.width / 2, 450);
+            
+            // Details
+            ctx.fillStyle = '#333';
+            ctx.font = '20px Arial';
+            ctx.fillText('Siswa/i telah menunjukkan pemahaman yang baik tentang:', canvas.width / 2, 510);
+            ctx.fillText('✓ 6 Rukun Iman     ✓ 5 Rukun Islam     ✓ Doa-doa Harian', canvas.width / 2, 540);
+            
+            // Date
+            ctx.fillStyle = '#6c757d';
+            ctx.font = '22px Arial';
+            ctx.fillText('Jakarta, ' + document.getElementById('currentDate').textContent, canvas.width / 2, 620);
+            
+            // Decorative elements
+            ctx.fillStyle = '#ffd700';
+            ctx.font = '40px Arial';
+            ctx.fillText('🏆', 150, 600);
+            ctx.fillText('🕌', canvas.width - 150, 600);
+            ctx.fillText('📿', 150, 200);
+            ctx.fillText('☪️', canvas.width - 150, 200);
+            
+            // Download
+            const link = document.createElement('a');
+            link.download = `sertifikat-islam-${studentName.replace(/\s+/g, '-')}.png`;
+            link.href = canvas.toDataURL('image/png', 1.0);
+            link.click();
+            
+            showNotification('📥 Sertifikat berhasil diunduh! Selamat!');
+        }
+
+        // Data persistence
+        function saveData() {
+            const data = {
+                progress: progressData,
+                dhikr: dhikrCounters,
+                timestamp: new Date().toISOString()
+            };
+            // Note: localStorage is not available in Claude artifacts
+            // In a real app, you would use: localStorage.setItem('islamicAppData', JSON.stringify(data));
+        }
+
+        function loadData() {
+            // Note: localStorage is not available in Claude artifacts
+            // In a real app, you would use: const data = JSON.parse(localStorage.getItem('islamicAppData') || '{}');
+            // For now, we'll start with fresh data each time
+            updateProgress();
+            updateDhikrCounters();
+        }
+
+        function updateDhikrCounters() {
+            document.getElementById('tasbihCount').textContent = dhikrCounters.tasbih;
+            document.getElementById('tahmidCount').textContent = dhikrCounters.tahmid;
+            document.getElementById('takbirCount').textContent = dhikrCounters.takbir;
+        }
+
+        // Prayer time reminder
+        setInterval(() => {
+            const now = new Date();
+            const hour = now.getHours();
+            
+            if (hour === 17 && now.getMinutes() === 0) {
+                showNotification('🕐 Jangan lupa dzikir sore hari!');
+            }
+            
+            if (hour === 6 && now.getMinutes() === 0) {
+                showNotification('🌅 Selamat pagi! Jangan lupa dzikir pagi!');
+            }
+        }, 60000);
+
+        // Additional features
+        function showAsmaHusna() {
+            const asmaHusna = [
+                'الرَّحْمَٰنُ - Ar-Rahman (Maha Pengasih)',
+                'الرَّحِيمُ - Ar-Rahim (Maha Penyayang)',
+                'الْمَلِكُ - Al-Malik (Maha Raja)',
+                'الْقُدُّوسُ - Al-Quddus (Maha Suci)',
+                'السَّلَامُ - As-Salam (Maha Sejahtera)',
+                'الْمُؤْمِنُ - Al-Mu\'min (Maha Mengamankan)',
+                'الْمُهَيْمِنُ - Al-Muhaimin (Maha Mengawasi)',
+                'الْعَزِيزُ - Al-Aziz (Maha Perkasa)',
+                'الْجَبَّارُ - Al-Jabbar (Maha Memaksa)',
+                'الْمُتَكَبِّرُ - Al-Mutakabbir (Maha Sombong)'
+            ];
+            
+            let asmaulHusnaHtml = '<h3>🌟 Asmaul Husna</h3>';
+            asmaHusna.forEach(nama => {
+                asmaulHusnaHtml += `<div class="item"><div class="arabic">${nama}</div></div>`;
+            });
+            
+            const card = document.createElement('div');
+            card.className = 'card';
+            card.innerHTML = asmaulHusnaHtml;
+            document.getElementById('doa').appendChild(card);
+        }
+
+        // Initialize additional content
+        setTimeout(() => {
+            showAsmaHusna();
+        }, 1000);
+    </script>
+</body>
+</html>

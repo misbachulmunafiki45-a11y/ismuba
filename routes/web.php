@@ -10,10 +10,12 @@ use App\Http\Controllers\Admin\TataCaraWudhuController;
 use App\Http\Controllers\Admin\KaifiyahJenazahController;
 use App\Http\Controllers\Admin\ActivityPhotoController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Halaman utama kustom
+Route::get('/', [HomeController::class, 'index'])->name('home');
+
+// ... routes lainnya
 
 Route::get('/dashboard', function () {
     return view('dashboard');
