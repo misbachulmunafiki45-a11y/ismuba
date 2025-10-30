@@ -19,14 +19,18 @@
             </div>
         @endif
 
+        <div class="d-flex justify-content-end mt-3 mb-3">
+            <a href="{{ route('admin.materi.options.create') }}" class="btn btn-purple">
+                <i class="fas fa-plus mr-1"></i> Tambah
+            </a>
+        </div>
+
         <div class="row">
             <div class="col-md-6">
                 <div class="card card-outline card-secondary">
                     <div class="card-header d-flex justify-content-between align-items-center pr-0">
                         <h3 class="card-title mb-0">Kelas</h3>
-                        <div class="card-tools pr-0">
-                            <a href="{{ route('admin.materi.options.create', ['type' => 'class_level']) }}" class="btn btn-purple"><i class="fas fa-plus mr-1"></i> Tambah</a>
-                        </div>
+                        
                     </div>
                     <div class="card-body p-0">
                         <div class="table-responsive">
@@ -64,9 +68,7 @@
                 <div class="card card-outline card-secondary">
                     <div class="card-header d-flex justify-content-between align-items-center pr-0">
                         <h3 class="card-title mb-0">Mapel</h3>
-                        <div class="card-tools pr-0">
-                            <a href="{{ route('admin.materi.options.create', ['type' => 'subject']) }}" class="btn btn-purple"><i class="fas fa-plus mr-1"></i> Tambah</a>
-                        </div>
+                        
                     </div>
                     <div class="card-body p-0">
                         <div class="table-responsive">

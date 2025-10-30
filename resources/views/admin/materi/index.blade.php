@@ -70,18 +70,19 @@
                     <button type="submit" class="btn btn-primary"><i class="fas fa-filter mr-1"></i> Terapkan</button>
                 </form>
 
-                <div class="table-responsive">
-                    <table class="table table-striped table-hover mb-0" style="table-layout: auto; width: 100%;">
+                <div class="table-responsive" style="overflow-x: auto;">
+                    <table class="table table-striped table-hover mb-0" style="table-layout: auto; width: max-content;">
                         <thead class="thead-light">
                             <tr>
-                                <th style="width: 60px">No</th>
-                                <th style="min-width: 120px">Kelas</th>
-                                <th style="min-width: 120px">Semester</th>
-                                <th style="min-width: 120px">Mapel</th>
-                                <th style="min-width: 140px">Judul</th>
-                                <th style="width: 90px; text-align:center;">File</th>
-                                <th>Diskripsi</th>
-                                <th style="width: 100px; text-align:center;">Aksi</th>
+                                <th style="white-space: nowrap;">No</th>
+                                <th style="white-space: nowrap;">Kelas</th>
+                                <th style="white-space: nowrap;">Semester</th>
+                                <th style="white-space: nowrap;">Mapel</th>
+                                <th style="white-space: nowrap;">Judul</th>
+                                <th style="text-align:center; white-space: nowrap;">File</th>
+                                <th style="text-align:center; white-space: nowrap;">Link</th>
+                                <th style="white-space: nowrap;">Diskripsi</th>
+                                <th style="text-align:center; white-space: nowrap;">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -99,12 +100,16 @@
                                             <span class="text-muted">—</span>
                                         @endif
                                     </td>
+                                    <td class="text-center">
+                                        @if($m->video_url)
+                                            <a href="{{ $m->video_url }}" target="_blank" class="btn btn-sm btn-success" title="Link Video" aria-label="Link Video" style="width: 36px; display:inline-flex; align-items:center; justify-content:center;"><i class="fas fa-video"></i></a>
+                                        @else
+                                            <span class="text-muted">—</span>
+                                        @endif
+                                    </td>
                                     <td class="text-muted" style="white-space: normal; word-break: break-word;">{{ $m->description }}</td>
                                     <td class="text-center">
                                         <div class="d-flex flex-column align-items-center">
-                                            @if($m->video_url)
-                                                <a href="{{ $m->video_url }}" target="_blank" class="btn btn-sm btn-success mb-1" title="Video" aria-label="Video" style="width: 36px; display:inline-flex; align-items:center; justify-content:center;"><i class="fas fa-video"></i></a>
-                                            @endif
                                             <a href="{{ route('admin.materi.edit', $m) }}" class="btn btn-sm btn-primary mb-1" title="Edit" aria-label="Edit" style="width: 36px; display:inline-flex; align-items:center; justify-content:center;"><i class="fas fa-edit"></i></a>
                                             <form action="{{ route('admin.materi.destroy', $m) }}" method="POST" style="display:inline;">
                                                 @csrf
@@ -118,7 +123,7 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="7" class="text-center text-muted py-4">Belum ada data materi.</td>
+                                    <td colspan="9" class="text-center text-muted py-4">Belum ada data materi.</td>
                                 </tr>
                             @endforelse
                         </tbody>

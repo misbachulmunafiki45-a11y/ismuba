@@ -23,18 +23,42 @@ function updateTime() {
   if (el) el.textContent = timeString;
 }
 
+const HIGHLIGHT_MINUTES = 10; // durasi highlight setelah waktu masuk
+const CHECK_INTERVAL_MS = 10000; // interval cek agar responsif
+
+let lastActiveTime = null;
+function parseTimeToToday(timeStr) {
+  const [h, m] = timeStr.split(':').map(Number);
+  const d = new Date();
+  d.setHours(h, m, 0, 0);
+  return d;
+}
+
+function isWithinHighlight(now, target, minutes) {
+  const diff = now.getTime() - target.getTime();
+  return diff >= 0 && diff <= minutes * 60 * 1000;
+}
+
 function checkPrayerTime() {
-  const times = {
-    fajr: '04:45',
-    dhuhr: '12:00',
-    asr: '15:30',
-    maghrib: '18:00',
-    isha: '19:30'
-  };
+  const cards = document.querySelectorAll('#home .prayer-grid .prayer-card');
   const now = new Date();
-  const current = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
-  Object.entries(times).forEach(([name, time]) => {
-    if (current === time) showNotification(`Waktu ${name} telah masuk.`);
+  cards.forEach(card => {
+    const time = card.getAttribute('data-time');
+    if (!time) {
+      card.classList.remove('active');
+      return;
+    }
+    const target = parseTimeToToday(time);
+    if (isWithinHighlight(now, target, HIGHLIGHT_MINUTES)) {
+      card.classList.add('active');
+      if (lastActiveTime !== time) {
+        const name = (card.querySelector('.prayer-name')?.textContent || 'Sholat').trim();
+        showNotification(`Waktu ${name} telah masuk.`);
+        lastActiveTime = time;
+      }
+    } else {
+      card.classList.remove('active');
+    }
   });
 }
 
@@ -50,5 +74,6 @@ document.addEventListener('DOMContentLoaded', () => {
   showSection('home');
   updateTime();
   setInterval(updateTime, 1000);
-  setInterval(checkPrayerTime, 60000);
+  checkPrayerTime();
+  setInterval(checkPrayerTime, CHECK_INTERVAL_MS);
 });
