@@ -36,12 +36,12 @@
                         <input id="title" name="title" type="text" class="form-control" required placeholder="Masukkan judul bacaan" />
                     </div>
                     <div class="form-group">
-                        <label for="arabic">Bacaan (Arab)</label>
-                        <textarea id="arabic" name="arabic" class="form-control" rows="2" required placeholder="Masukkan bacaan Arab"></textarea>
+                        <label for="arabic">Bacaan (Arab) <span class="text-muted">(opsional)</span></label>
+                        <textarea id="arabic" name="arabic" class="form-control" rows="2" placeholder="Masukkan bacaan Arab (boleh dikosongkan)"></textarea>
                     </div>
                     <div class="form-group">
-                        <label for="latin">Latin</label>
-                        <input id="latin" name="latin" type="text" class="form-control" required placeholder="Masukkan transliterasi Latin" />
+                        <label for="latin">Latin <span class="text-muted">(opsional)</span></label>
+                        <input id="latin" name="latin" type="text" class="form-control" placeholder="Masukkan transliterasi Latin (boleh dikosongkan)" />
                     </div>
                     <div class="form-group">
                         <label for="description">Deskripsi</label>

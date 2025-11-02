@@ -37,12 +37,12 @@
                         <input id="title" name="title" type="text" class="form-control" value="{{ $reading->title }}" required />
                     </div>
                     <div class="form-group">
-                        <label for="arabic">Bacaan (Arab)</label>
-                        <textarea id="arabic" name="arabic" class="form-control" rows="2" required>{{ $reading->arabic }}</textarea>
+                        <label for="arabic">Bacaan (Arab) <span class="text-muted">(opsional)</span></label>
+                        <textarea id="arabic" name="arabic" class="form-control" rows="2">{{ $reading->arabic }}</textarea>
                     </div>
                     <div class="form-group">
-                        <label for="latin">Latin</label>
-                        <input id="latin" name="latin" type="text" class="form-control" value="{{ $reading->latin }}" required />
+                        <label for="latin">Latin <span class="text-muted">(opsional)</span></label>
+                        <input id="latin" name="latin" type="text" class="form-control" value="{{ $reading->latin }}" />
                     </div>
                     <div class="form-group">
                         <label for="description">Deskripsi</label>

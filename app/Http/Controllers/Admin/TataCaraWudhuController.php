@@ -28,8 +28,8 @@ class TataCaraWudhuController extends Controller
     {
         $data = $request->validate([
             'title' => ['required', 'string', 'max:255'],
-            'arabic' => ['required', 'string'],
-            'latin' => ['required', 'string'],
+            'arabic' => ['nullable', 'string'],
+            'latin' => ['nullable', 'string'],
             'description' => ['nullable', 'string'],
             'image' => ['nullable', 'image', 'max:2048'],
         ]);
@@ -41,8 +41,8 @@ class TataCaraWudhuController extends Controller
 
         WudhuReading::create([
             'title' => $data['title'],
-            'arabic' => $data['arabic'],
-            'latin' => $data['latin'],
+            'arabic' => $data['arabic'] ?? '',
+            'latin' => $data['latin'] ?? '',
             'description' => $data['description'] ?? null,
             'image_path' => $imagePath,
         ]);
@@ -54,8 +54,8 @@ class TataCaraWudhuController extends Controller
     {
         $data = $request->validate([
             'title' => ['required', 'string', 'max:255'],
-            'arabic' => ['required', 'string'],
-            'latin' => ['required', 'string'],
+            'arabic' => ['nullable', 'string'],
+            'latin' => ['nullable', 'string'],
             'description' => ['nullable', 'string'],
             'image' => ['nullable', 'image', 'max:2048'],
         ]);
@@ -70,8 +70,8 @@ class TataCaraWudhuController extends Controller
 
         $reading->update([
             'title' => $data['title'],
-            'arabic' => $data['arabic'],
-            'latin' => $data['latin'],
+            'arabic' => $data['arabic'] ?? '',
+            'latin' => $data['latin'] ?? '',
             'description' => $data['description'] ?? null,
             'image_path' => $imagePath,
         ]);
