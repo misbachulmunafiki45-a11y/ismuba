@@ -15,6 +15,16 @@ use App\Http\Controllers\HomeController;
 // Halaman utama kustom
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
+// Halaman publik per bagian (user menu friendly URL)
+Route::get('/{section}', [HomeController::class, 'indexSection'])
+    ->where('section', 'wudhu|sholat|doa|kaifiyah|materi|foto|alquran')
+    ->name('home.section');
+
+// Halaman publik Kaifiyah Jenazah per bagian
+Route::get('/funeral-howto/{section}', [HomeController::class, 'kaifiyahSection'])
+    ->where('section', 'bathing|shrouding|prayer|burial')
+    ->name('funeral.howto.section');
+
 // ... routes lainnya
 
 Route::get('/dashboard', function () {

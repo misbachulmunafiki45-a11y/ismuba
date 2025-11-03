@@ -22,38 +22,50 @@
 
         <div class="desktop-nav">
             <div class="desktop-nav-grid">
-                <div class="desktop-nav-item active" onclick="showSection('home', this)">
+                <a class="desktop-nav-item active" href="{{ url('/') }}" data-section="home">
                     <div class="desktop-nav-icon">🏠</div>
                     <div class="desktop-nav-text">Home</div>
-                </div>
-                <div class="desktop-nav-item" onclick="showSection('wudhu', this)">
-                    <div class="desktop-nav-icon">🚿</div>
+                </a>
+                <a class="desktop-nav-item" href="{{ url('/wudhu') }}" data-section="wudhu">
+                    <div class="desktop-nav-icon">
+                        <img src="{{ asset('img/wudhu.png') }}" alt="Wudhu" class="nav-icon-img" onerror="this.style.display='none'; this.parentNode.querySelector('.nav-icon-fallback').style.display='inline-block';">
+                        <span class="nav-icon-fallback" style="display:none;">🚿</span>
+                    </div>
                     <div class="desktop-nav-text">Wudhu</div>
-                </div>
-                <div class="desktop-nav-item" onclick="showSection('sholat', this)">
-                    <div class="desktop-nav-icon">🕌</div>
+                </a>
+                <a class="desktop-nav-item" href="{{ url('/sholat') }}" data-section="sholat">
+                    <div class="desktop-nav-icon">
+                        <img src="{{ asset('img/sholat.png') }}" alt="Sholat" class="nav-icon-img" onerror="this.style.display='none'; this.parentNode.querySelector('.nav-icon-fallback').style.display='inline-block';">
+                        <span class="nav-icon-fallback" style="display:none;">🕌</span>
+                    </div>
                     <div class="desktop-nav-text">Sholat</div>
-                </div>
-                <div class="desktop-nav-item" onclick="showSection('doa', this)">
+                </a>
+                <a class="desktop-nav-item" href="{{ url('/doa') }}" data-section="doa">
                     <div class="desktop-nav-icon">📿</div>
                     <div class="desktop-nav-text">Bacaan Doa</div>
-                </div>
-                <a href="https://quran.kemenag.go.id/" target="_blank" rel="noopener" class="desktop-nav-item">
-                    <div class="desktop-nav-icon">📖</div>
-                    <div class="desktop-nav-text">Alquran</div>
                 </a>
-                <div class="desktop-nav-item" onclick="showSection('kaifiyah', this)">
-                    <div class="desktop-nav-icon">⚰️</div>
+                <a class="desktop-nav-item" href="{{ url('/kaifiyah') }}" data-section="kaifiyah">
+                    <div class="desktop-nav-icon">
+                        <img src="{{ asset('img/jenazah.png') }}" alt="Kaifiyah" class="nav-icon-img nav-icon-img--lg" onerror="this.style.display='none'; this.parentNode.querySelector('.nav-icon-fallback').style.display='inline-block';">
+                        <span class="nav-icon-fallback" style="display:none;">🕌</span>
+                    </div>
                     <div class="desktop-nav-text">Kaifiyah Jenazah</div>
-                </div>
-                <div class="desktop-nav-item" onclick="showSection('materi', this)">
+                </a>
+                <a class="desktop-nav-item" href="{{ url('/materi') }}" data-section="materi">
                     <div class="desktop-nav-icon">🎓</div>
                     <div class="desktop-nav-text">Materi</div>
-                </div>
-                <div class="desktop-nav-item" onclick="showSection('foto', this)">
+                </a>
+                <a class="desktop-nav-item" href="{{ url('/foto') }}" data-section="foto">
                     <div class="desktop-nav-icon">🖼️</div>
                     <div class="desktop-nav-text">Foto Kegiatan</div>
-                </div>
+                </a>
+                <a href="https://quran.kemenag.go.id/" target="_blank" rel="noopener" class="desktop-nav-item">
+                    <div class="desktop-nav-icon">
+                        <img src="{{ asset('img/alquran.png') }}" alt="Alquran" class="nav-icon-img" onerror="this.style.display='none'; this.parentNode.querySelector('.nav-icon-fallback').style.display='inline-block';">
+                        <span class="nav-icon-fallback" style="display:none;">📖</span>
+                    </div>
+                    <div class="desktop-nav-text">Alquran</div>
+                </a>
             </div>
         </div>
 
@@ -191,49 +203,73 @@
         <div id="kaifiyah" class="section hidden">
             <div class="card">
                 <h2>Kaifiyah Jenazah</h2>
-                @forelse($kaifiyahItems as $section => $items)
-                    <div class="item" style="background: rgba(102, 126, 234, 0.2); color:#2c3e50;">
-                        <h3 style="margin-bottom:6px;">Bagian: {{ $section }}</h3>
-                        @foreach($items as $item)
-                            <div style="background: white; color:#333; padding:12px; border-radius:8px; margin:8px 0;">
-                                <h4 style="margin-bottom:6px;">{{ $item->title }}</h4>
-                                @if($item->image_path)
-                                    <img src="{{ Storage::url($item->image_path) }}" alt="{{ $item->title }}" style="max-width: 100%; border-radius: 10px; margin: 6px 0;" />
-                                @endif
-                                @if($item->description)
-                                    <p>{!! nl2br(e($item->description)) !!}</p>
-                                @endif
-                            </div>
-                        @endforeach
-                    </div>
-                @empty
-                    <p>Belum ada data kaifiyah.</p>
-                @endforelse
+                @php
+                    $kaifiyahLabels = [
+                        'bathing' => 'Memandikan',
+                        'shrouding' => 'Mengkafani',
+                        'prayer' => 'Mensholatkan',
+                        'burial' => 'Mengkubur',
+                    ];
+                    $kaifiyahSections = ['bathing','shrouding','prayer','burial'];
+                @endphp
+                <div class="kaifiyah-menu">
+                    @foreach($kaifiyahSections as $sec)
+                        <div class="kaifiyah-tile" data-section="{{ $sec }}">
+                            <a class="kaifiyah-menu-item" href="{{ route('funeral.howto.section', $sec) }}">{{ $kaifiyahLabels[$sec] }}</a>
+                        </div>
+                    @endforeach
+                </div>
             </div>
         </div>
 
         <div id="materi" class="section hidden">
             <div class="card">
                 <h2>Materi</h2>
-                @forelse($materials as $m)
-                    <div class="item">
-                        <h3>{{ $m->title }}</h3>
-                        <p style="opacity:0.9;">Kelas {{ $m->class_level }} • Semester {{ $m->semester }} • Mapel {{ $m->subject }}</p>
-                        @if($m->description)
-                            <p style="margin-top:6px;">{!! nl2br(e($m->description)) !!}</p>
-                        @endif
-                        <div style="margin-top:8px; display:flex; gap:10px; flex-wrap:wrap;">
-                            @if($m->file_path)
-                                <a class="btn" href="{{ Storage::url($m->file_path) }}" target="_blank" rel="noopener">Lihat File</a>
-                            @endif
-                            @if($m->video_url)
-                                <a class="btn" href="{{ $m->video_url }}" target="_blank" rel="noopener">Tonton Video</a>
-                            @endif
-                        </div>
-                    </div>
-                @empty
+                <div style="display:flex; gap:12px; flex-wrap:wrap; margin:8px 0 16px;">
+                    <a class="btn" href="{{ route('home.section', 'materi') }}#kelas-x">Kelas X</a>
+                    <a class="btn" href="{{ route('home.section', 'materi') }}#kelas-xi">Kelas XI</a>
+                    <a class="btn" href="{{ route('home.section', 'materi') }}#kelas-xii">Kelas XII</a>
+                </div>
+                @php
+                    use Illuminate\Support\Str;
+                    $groups = $materials->groupBy('subject');
+                @endphp
+                @if($groups->isEmpty())
                     <p>Belum ada materi.</p>
-                @endforelse
+                @else
+                    <div class="materi-menu" style="display:flex; gap:12px; flex-wrap:wrap;">
+                        @foreach($groups as $subject => $items)
+                            @php $slug = Str::slug($subject ?: 'umum'); @endphp
+                            <div class="materi-tile" data-section="{{ $slug }}">
+                                <a class="materi-menu-item" href="{{ route('home.section', 'materi') }}#materi-{{ $slug }}">{{ $subject ?: 'Umum' }}</a>
+                            </div>
+                        @endforeach
+                    </div>
+
+                    @foreach($groups as $subject => $items)
+                        @php $slug = Str::slug($subject ?: 'umum'); @endphp
+                        <div id="materi-content-{{ $slug }}" hidden class="card" style="margin-top:12px;">
+                            <h3 style="margin-bottom:8px;">{{ $subject ?: 'Umum' }}</h3>
+                            @foreach($items as $m)
+                                <div class="item" style="margin-bottom:12px;">
+                                    <h4 style="margin-bottom:4px;">{{ $m->title }}</h4>
+                                    <p style="opacity:0.9;">Kelas {{ $m->class_level }} • Semester {{ $m->semester }} • Mapel {{ $m->subject }}</p>
+                                    @if($m->description)
+                                        <p style="margin-top:6px;">{!! nl2br(e($m->description)) !!}</p>
+                                    @endif
+                                    <div style="margin-top:8px; display:flex; gap:10px; flex-wrap:wrap;">
+                                        @if($m->file_path)
+                                            <a class="btn" href="{{ Storage::url($m->file_path) }}" target="_blank" rel="noopener">Lihat File</a>
+                                        @endif
+                                        @if($m->video_url)
+                                            <a class="btn" href="{{ $m->video_url }}" target="_blank" rel="noopener">Tonton Video</a>
+                                        @endif
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    @endforeach
+                @endif
             </div>
         </div>
 
@@ -256,38 +292,50 @@
         </div>
 
         <div class="bottom-nav">
-            <div class="nav-item active" onclick="showSection('home', this)">
+            <a class="nav-item active" href="{{ url('/') }}" data-section="home">
                 <div class="nav-icon">🏠</div>
                 <div class="nav-text">Home</div>
-            </div>
-            <div class="nav-item" onclick="showSection('wudhu', this)">
-                <div class="nav-icon">🚿</div>
+            </a>
+            <a class="nav-item" href="{{ url('/wudhu') }}" data-section="wudhu">
+                <div class="nav-icon">
+                    <img src="{{ asset('img/wudhu.png') }}" alt="Wudhu" class="nav-icon-img" onerror="this.style.display='none'; this.parentNode.querySelector('.nav-icon-fallback').style.display='inline-block';">
+                    <span class="nav-icon-fallback" style="display:none;">🚿</span>
+                </div>
                 <div class="nav-text">Wudhu</div>
-            </div>
-            <div class="nav-item" onclick="showSection('sholat', this)">
-                <div class="nav-icon">🕌</div>
+            </a>
+            <a class="nav-item" href="{{ url('/sholat') }}" data-section="sholat">
+                <div class="nav-icon">
+                    <img src="{{ asset('img/sholat.png') }}" alt="Sholat" class="nav-icon-img" onerror="this.style.display='none'; this.parentNode.querySelector('.nav-icon-fallback').style.display='inline-block';">
+                    <span class="nav-icon-fallback" style="display:none;">🕌</span>
+                </div>
                 <div class="nav-text">Sholat</div>
-            </div>
-            <div class="nav-item" onclick="showSection('doa', this)">
+            </a>
+            <a class="nav-item" href="{{ url('/doa') }}" data-section="doa">
                 <div class="nav-icon">📿</div>
                 <div class="nav-text">Doa</div>
-            </div>
-            <div class="nav-item" onclick="window.open('https://quran.kemenag.go.id/', '_blank')">
-                <div class="nav-icon">📖</div>
-                <div class="nav-text">Alquran</div>
-            </div>
-            <div class="nav-item" onclick="showSection('kaifiyah', this)">
-                <div class="nav-icon">⚰️</div>
+            </a>
+            <a class="nav-item" href="{{ url('/kaifiyah') }}" data-section="kaifiyah">
+                <div class="nav-icon">
+                    <img src="{{ asset('img/jenazah.png') }}" alt="Kaifiyah" class="nav-icon-img nav-icon-img--lg" onerror="this.style.display='none'; this.parentNode.querySelector('.nav-icon-fallback').style.display='inline-block';">
+                    <span class="nav-icon-fallback" style="display:none;">🕌</span>
+                </div>
                 <div class="nav-text">Kaifiyah</div>
-            </div>
-            <div class="nav-item" onclick="showSection('materi', this)">
+            </a>
+            <a class="nav-item" href="{{ url('/materi') }}" data-section="materi">
                 <div class="nav-icon">🎓</div>
                 <div class="nav-text">Materi</div>
-            </div>
-            <div class="nav-item" onclick="showSection('foto', this)">
+            </a>
+            <a class="nav-item" href="{{ url('/foto') }}" data-section="foto">
                 <div class="nav-icon">🖼️</div>
                 <div class="nav-text">Foto</div>
-            </div>
+            </a>
+            <a class="nav-item" href="https://quran.kemenag.go.id/" target="_blank" rel="noopener">
+                <div class="nav-icon">
+                    <img src="{{ asset('img/alquran.png') }}" alt="Alquran" class="nav-icon-img" onerror="this.style.display='none'; this.parentNode.querySelector('.nav-icon-fallback').style.display='inline-block';">
+                    <span class="nav-icon-fallback" style="display:none;">📖</span>
+                </div>
+                <div class="nav-text">Alquran</div>
+            </a>
         </div>
 
     </div>

@@ -10,6 +10,10 @@ function showSection(sectionId, el) {
   if (el) {
     const navItem = el.closest('.nav-item, .desktop-nav-item');
     if (navItem) navItem.classList.add('active');
+  } else {
+    document.querySelectorAll(
+      `.nav-item[data-section="${sectionId}"], .desktop-nav-item[data-section="${sectionId}"]`
+    ).forEach(item => item.classList.add('active'));
   }
 }
 
@@ -71,9 +75,118 @@ function showNotification(message) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  showSection('home');
+  function getInitialSectionFromPath() {
+    const path = (window.location.pathname || '/').replace(/\/+$/, '');
+    const seg = path.split('/')[1] || '';
+    const allowed = ['wudhu','sholat','doa','kaifiyah','materi','foto'];
+    if (allowed.includes(seg)) return seg;
+    return 'home';
+  }
+
+  const initialSection = getInitialSectionFromPath();
+  showSection(initialSection);
   updateTime();
   setInterval(updateTime, 1000);
   checkPrayerTime();
   setInterval(checkPrayerTime, CHECK_INTERVAL_MS);
+
+  // Kaifiyah: tile expandable - tampilkan konten di dalam tile yang diklik
+  const tiles = Array.from(document.querySelectorAll('.kaifiyah-tile'));
+  if (tiles.length) {
+    function closeAllTiles() {
+      tiles.forEach(t => {
+        const section = t.getAttribute('data-section');
+        const content = document.getElementById('kaifiyah-content-' + section);
+        const btn = t.querySelector('.kaifiyah-menu-item');
+        if (content) content.setAttribute('hidden', 'hidden');
+        if (btn) btn.classList.remove('active');
+      });
+  }
+
+  // Materi: tile expandable per subject
+  const materiTiles = Array.from(document.querySelectorAll('.materi-tile'));
+  if (materiTiles.length) {
+    function closeAllMateriTiles() {
+      materiTiles.forEach(t => {
+        const section = t.getAttribute('data-section');
+        const content = document.getElementById('materi-content-' + section);
+        const btn = t.querySelector('.materi-menu-item');
+        if (content) content.setAttribute('hidden', 'hidden');
+        if (btn) btn.classList.remove('active');
+      });
+    }
+
+    function openMateriTile(section) {
+      const tile = document.querySelector('.materi-tile[data-section="' + section + '"]');
+      if (!tile) return;
+      const content = document.getElementById('materi-content-' + section);
+      const btn = tile.querySelector('.materi-menu-item');
+      closeAllMateriTiles();
+      if (content) content.removeAttribute('hidden');
+      if (btn) btn.classList.add('active');
+      tile.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    materiTiles.forEach(t => {
+      const section = t.getAttribute('data-section');
+      const content = document.getElementById('materi-content-' + section);
+      const btn = t.querySelector('.materi-menu-item');
+      if (!btn) return;
+      btn.addEventListener('click', (e) => {
+        // Jika href tetap di /materi dengan hash, biarkan default berjalan,
+        // tapi juga buka tile agar UX terasa responsif.
+        const isOpen = content && !content.hasAttribute('hidden');
+        closeAllMateriTiles();
+        if (!isOpen && content) {
+          content.removeAttribute('hidden');
+          btn.classList.add('active');
+          t.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+
+    const initialHashMateri = window.location.hash;
+    if (initialHashMateri && initialHashMateri.startsWith('#materi-')) {
+      const targetSection = initialHashMateri.replace('#materi-', '');
+      openMateriTile(targetSection);
+    }
+  }
+    function openTile(section) {
+      const tile = document.querySelector('.kaifiyah-tile[data-section="' + section + '"]');
+      if (!tile) return;
+      const content = document.getElementById('kaifiyah-content-' + section);
+      const btn = tile.querySelector('.kaifiyah-menu-item');
+      closeAllTiles();
+      if (content) {
+        content.removeAttribute('hidden');
+      }
+      if (btn) {
+        btn.classList.add('active');
+      }
+      tile.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    tiles.forEach(t => {
+      const section = t.getAttribute('data-section');
+      const content = document.getElementById('kaifiyah-content-' + section);
+      const btn = t.querySelector('.kaifiyah-menu-item');
+      if (!btn) return;
+      btn.addEventListener('click', () => {
+        const isOpen = content && !content.hasAttribute('hidden');
+        closeAllTiles();
+        if (!isOpen && content) {
+          content.removeAttribute('hidden');
+          btn.classList.add('active');
+          t.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+
+    // Buka tile berdasarkan hash jika tersedia
+    const initialHash = window.location.hash;
+    if (initialHash && initialHash.startsWith('#kaifiyah-')) {
+      const targetSection = initialHash.replace('#kaifiyah-', '');
+      openTile(targetSection);
+    }
+  }
 });

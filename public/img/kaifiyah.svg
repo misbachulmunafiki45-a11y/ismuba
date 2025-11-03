@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" aria-hidden="true">
+  <!-- Simple respectful icon: mosque arches, people, and bier -->
+  <defs>
+    <linearGradient id="bierGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#6fcf97"/>
+      <stop offset="100%" stop-color="#27ae60"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background arches -->
+  <path d="M10 26 Q16 14 22 26 V46 H10 Z" fill="#e6e9f0"/>
+  <path d="M26 26 Q32 14 38 26 V46 H26 Z" fill="#dde1eb"/>
+  <path d="M42 26 Q48 14 54 26 V46 H42 Z" fill="#d5d9e6"/>
+
+  <!-- Clock -->
+  <circle cx="32" cy="12" r="4" fill="#cfd6e6"/>
+  <rect x="31.8" y="10.5" width="0.4" height="3" fill="#8a95a8"/>
+  <rect x="32" y="12" width="2" height="0.4" transform="rotate(45 32 12)" fill="#8a95a8"/>
+
+  <!-- People (simple silhouettes) -->
+  <g fill="#9aa7bd">
+    <circle cx="20" cy="32" r="3"/>
+    <rect x="17.5" y="35" width="5" height="9" rx="1"/>
+  </g>
+  <g fill="#8d9ab1">
+    <circle cx="32" cy="31.5" r="3"/>
+    <rect x="29.5" y="34.5" width="5" height="9" rx="1"/>
+  </g>
+  <g fill="#7f8aa3">
+    <circle cx="44" cy="32" r="3"/>
+    <rect x="41.5" y="35" width="5" height="9" rx="1"/>
+  </g>
+
+  <!-- Bier (keranda) -->
+  <rect x="14" y="44" width="36" height="10" rx="5" fill="url(#bierGrad)"/>
+  <rect x="16" y="47" width="32" height="4" rx="2" fill="#eaf7ef" opacity="0.6"/>
+
+  <!-- Base floor line -->
+  <rect x="8" y="56" width="48" height="2" fill="#cfd6e6"/>
+</svg>

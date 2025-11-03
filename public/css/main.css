@@ -53,6 +53,19 @@ body {
     margin-bottom: 10px;
 }
 
+/* Ikon gambar untuk nav (desktop) */
+.desktop-nav-icon .nav-icon-img {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+    display: inline-block;
+}
+/* Ukuran besar khusus untuk ikon Kaifiyah (desktop) */
+.desktop-nav-icon .nav-icon-img.nav-icon-img--lg {
+    width: 56px;
+    height: 56px;
+}
+
 .desktop-nav-text {
     font-size: 1rem;
     font-weight: bold;
@@ -237,6 +250,14 @@ body {
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
     margin: 10px 0;
     text-align: center;
+    line-height: 1.8;
+}
+
+/* Doa section: besarkan sedikit dan rata kanan */
+#doa .arabic {
+    font-size: 1.8rem;
+    text-align: right;
+    direction: rtl;
 }
 
 .translation {
@@ -570,6 +591,19 @@ body {
     margin-bottom: 4px;
 }
 
+/* Ikon gambar untuk nav (mobile bottom-nav) */
+.nav-icon .nav-icon-img {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+    display: inline-block;
+}
+/* Ukuran besar khusus untuk ikon Kaifiyah (mobile) */
+.nav-icon .nav-icon-img.nav-icon-img--lg {
+    width: 32px;
+    height: 32px;
+}
+
 .nav-text {
     font-size: 0.8rem;
     color: #2c3e50;
@@ -643,7 +677,15 @@ body {
 
     .bottom-nav {
         display: flex;
+        justify-content: flex-start;
+        gap: 8px;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        flex-wrap: nowrap;
+        padding-bottom: 12px;
     }
+    .bottom-nav::-webkit-scrollbar { display: none; }
+    .nav-item { flex: 0 0 auto; }
 
     .desktop-nav {
         display: none;
@@ -664,6 +706,14 @@ body {
 
     .arabic {
         font-size: 1.3rem;
+        line-height: 1.9;
+    }
+    /* Override untuk Doa pada mobile */
+    #doa .arabic {
+        font-size: 1.6rem;
+        text-align: right;
+        direction: rtl;
+        line-height: 2.2;
     }
 
     .time-display {
@@ -723,4 +773,60 @@ body {
     .nav-icon {
         font-size: 1.3rem;
     }
+}
+
+/* Kaifiyah Jenazah user menu */
+.kaifiyah-menu {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 8px;
+    margin-bottom: 12px;
+}
+.kaifiyah-tile {
+    flex: 1 1 calc(25% - 12px);
+    min-width: 140px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.kaifiyah-menu-item {
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    color: #ffffff;
+    text-align: center;
+    padding: 12px 10px;
+    border-radius: 10px;
+    border: none;
+    font-weight: 600;
+    text-decoration: none;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+}
+.kaifiyah-menu-item:hover {
+    filter: brightness(1.08);
+    transform: translateY(-1px);
+}
+.kaifiyah-menu-item.active {
+    outline: 2px solid rgba(255,255,255,0.9);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.18);
+}
+@media (max-width: 640px) {
+    .kaifiyah-tile {
+        flex: 1 1 calc(50% - 12px);
+    }
+}
+
+/* Smooth scroll untuk anchor navigasi */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Panel konten Kaifiyah dalam tile */
+.kaifiyah-content {
+    background: rgba(102, 126, 234, 0.12);
+    color: #2c3e50;
+    padding: 12px;
+    border-radius: 10px;
+}
+.kaifiyah-content[hidden] {
+    display: none;
 }
