@@ -830,3 +830,34 @@ html {
 .kaifiyah-content[hidden] {
     display: none;
 }
+
+/* Tombol Back: warna berbeda agar mudah dibedakan */
+.btn-back {
+    background: linear-gradient(135deg, #ffd54f 0%, #ff9800 100%);
+    color: #1f2937; /* teks gelap untuk kontras */
+    border: none;
+    box-shadow: 0 6px 18px rgba(255, 152, 0, 0.35);
+}
+.btn-back:hover {
+    filter: brightness(1.06);
+    transform: translateY(-1px);
+    box-shadow: 0 10px 24px rgba(255, 152, 0, 0.45);
+}
+
+/* Animasi hover/touch untuk flexbox gambar pada halaman Materi (Kelas) */
+.image-flexbox-card {
+    transition: transform 0.22s ease, box-shadow 0.22s ease;
+    will-change: transform;
+}
+.image-flexbox-card:hover {
+    transform: translateY(-2px) scale(1.01);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.16);
+}
+.image-flexbox-card.is-touched {
+    transform: scale(1.02);
+    box-shadow: 0 16px 36px rgba(0,0,0,0.22);
+}
+/* Non-hover devices: jangan terapkan hover transform */
+@media (hover: none) {
+    .image-flexbox-card:hover { transform: none; }
+}

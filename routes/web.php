@@ -11,13 +11,22 @@ use App\Http\Controllers\Admin\KaifiyahJenazahController;
 use App\Http\Controllers\Admin\ActivityPhotoController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\MateriPublicController;
 
 // Halaman utama kustom
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
-// Halaman publik per bagian (user menu friendly URL)
+// Navigasi publik Materi bertingkat: Kelas -> Semester -> Mapel -> Daftar Materi
+Route::prefix('materi')->group(function () {
+    Route::get('/', [MateriPublicController::class, 'index'])->name('materi.index');
+    Route::get('/{class}', [MateriPublicController::class, 'semester'])->name('materi.semester');
+    Route::get('/{class}/{semester}', [MateriPublicController::class, 'subject'])->name('materi.subject');
+    Route::get('/{class}/{semester}/{subject}', [MateriPublicController::class, 'list'])->name('materi.list');
+});
+
+// Halaman publik per bagian (user menu friendly URL) selain materi
 Route::get('/{section}', [HomeController::class, 'indexSection'])
-    ->where('section', 'wudhu|sholat|doa|kaifiyah|materi|foto|alquran')
+    ->where('section', 'wudhu|sholat|doa|kaifiyah|foto|alquran')
     ->name('home.section');
 
 // Halaman publik Kaifiyah Jenazah per bagian

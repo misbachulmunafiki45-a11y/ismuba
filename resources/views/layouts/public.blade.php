@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>ISMUBA Digital</title>
     <link rel="stylesheet" href="{{ asset('css/main.css') }}">
 </head>
@@ -10,6 +10,7 @@
 @php use Illuminate\Support\Facades\Storage; @endphp
 
     <div class="container">
+        <!-- Header brand sama seperti halaman Kaifiyah/Home -->
         <div class="header card">
             <div class="header-brand">
                 <img src="{{ Storage::url('stm.png') }}" alt="" class="brand-logo">
@@ -20,9 +21,10 @@
             </div>
         </div>
 
+        <!-- Desktop navigation, Materi aktif -->
         <div class="desktop-nav">
             <div class="desktop-nav-grid">
-                <a class="desktop-nav-item active" href="{{ url('/') }}" data-section="home">
+                <a class="desktop-nav-item" href="{{ url('/') }}" data-section="home">
                     <div class="desktop-nav-icon">🏠</div>
                     <div class="desktop-nav-text">Home</div>
                 </a>
@@ -51,7 +53,7 @@
                     </div>
                     <div class="desktop-nav-text">Kaifiyah Jenazah</div>
                 </a>
-                <a class="desktop-nav-item" href="{{ url('/materi') }}" data-section="materi">
+                <a class="desktop-nav-item active" href="{{ url('/materi') }}" data-section="materi">
                     <div class="desktop-nav-icon">🎓</div>
                     <div class="desktop-nav-text">Materi</div>
                 </a>
@@ -69,40 +71,13 @@
             </div>
         </div>
 
-        <div id="home" class="section">
-            @include('menus.home')
-        </div>
+        <main>
+            @yield('content')
+        </main>
 
-        <div id="wudhu" class="section hidden">
-            @include('menus.wudhu')
-        </div>
-
-        <div id="sholat" class="section hidden">
-            @include('menus.sholat')
-        </div>
-
-        <div id="doa" class="section hidden">
-            @include('menus.doa')
-        </div>
-
-        <div id="alquran" class="section hidden">
-            @include('menus.alquran')
-            </div>
-
-        <div id="kaifiyah" class="section hidden">
-            @include('menus.kaifiyah')
-        </div>
-
-        <div id="materi" class="section hidden">
-            @include('menus.materi')
-        </div>
-
-        <div id="foto" class="section hidden">
-            @include('menus.foto')
-        </div>
-
+        <!-- Bottom navigation, Materi aktif -->
         <div class="bottom-nav">
-            <a class="nav-item active" href="{{ url('/') }}" data-section="home">
+            <a class="nav-item" href="{{ url('/') }}" data-section="home">
                 <div class="nav-icon">🏠</div>
                 <div class="nav-text">Home</div>
             </a>
@@ -131,7 +106,7 @@
                 </div>
                 <div class="nav-text">Kaifiyah</div>
             </a>
-            <a class="nav-item" href="{{ url('/materi') }}" data-section="materi">
+            <a class="nav-item active" href="{{ url('/materi') }}" data-section="materi">
                 <div class="nav-icon">🎓</div>
                 <div class="nav-text">Materi</div>
             </a>

@@ -189,4 +189,25 @@ document.addEventListener('DOMContentLoaded', () => {
       openTile(targetSection);
     }
   }
+
+  // Animasi sentuh/klik untuk kontainer gambar di halaman Materi (Kelas)
+  const imageCards = Array.from(document.querySelectorAll('.image-flexbox-card'));
+  if (imageCards.length) {
+    imageCards.forEach(card => {
+      // Pointer events: unify mouse/touch
+      const addTouch = () => card.classList.add('is-touched');
+      const removeTouch = () => card.classList.remove('is-touched');
+
+      // Pointer (mouse) interactions
+      card.addEventListener('pointerdown', addTouch);
+      card.addEventListener('pointerup', removeTouch);
+      card.addEventListener('pointerleave', removeTouch);
+
+      // Touch-specific: brief pulse on tap
+      card.addEventListener('touchstart', () => {
+        card.classList.add('is-touched');
+        setTimeout(() => card.classList.remove('is-touched'), 220);
+      }, { passive: true });
+    });
+  }
 });
