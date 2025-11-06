@@ -25,10 +25,50 @@
             .bg-overlay {
                 position: fixed;
                 inset: 0;
-                background: rgba(10, 20, 40, 0.58); /* tingkatkan gelap overlay untuk kontras teks */
+                background: rgba(10, 20, 40, 0.45); /* sedikit lebih terang agar lingkaran terlihat */
                 pointer-events: none;
-                z-index: 0;
+                z-index: 1; /* overlay di atas elemen dekoratif */
             }
+
+            /* Dekorasi ripple circles di background */
+            .bg-circles { position: fixed; inset: 0; pointer-events: none; z-index: 2; }
+            .circle { position: absolute; border-radius: 50%; background: #1e57e9; animation: ripple 15s infinite; box-shadow: 0 0 1px 0 #508fb9; }
+            .bg-circles > .circle:nth-child(odd) { background: #1e57e9; }
+            .bg-circles > .circle:nth-child(even) { background: #ffffff; }
+            .bg-circles .xxlarge { background: #ffffff; }
+            /* Penyesuaian komposisi: gradien 45°, opacity lembut, durasi animasi, posisi */
+            .bg-circles .circle.medium { background: linear-gradient(45deg, #2b6af5 0%, #1e57e9 100%) !important; animation-duration: 12s; }
+            .bg-circles .circle.xlarge { background: linear-gradient(45deg, #2b6af5 0%, #1e57e9 100%) !important; animation-duration: 14s; }
+            .bg-circles .circle.small { animation-duration: 16s; }
+            .bg-circles .circle.large { animation-duration: 18s; }
+            .bg-circles .circle.xxlarge { animation-duration: 20s; }
+            .shade1 { opacity: 0.10; }
+            .shade2 { opacity: 0.18; }
+            .shade3 { opacity: 0.26; }
+            .shade4 { opacity: 0.34; }
+            .shade5 { opacity: 0.42; }
+            .small { left: -80px; bottom: -120px; }
+            .medium { left: -240px; bottom: -180px; }
+            .large { left: -320px; bottom: -360px; }
+            .xlarge { left: -420px; bottom: -420px; }
+            .xxlarge { left: -520px; bottom: -560px; }
+            /* Warna spesifik per ukuran sesuai permintaan */
+            .bg-circles .circle.small { background: #ffffff; }
+            .bg-circles .circle.medium { background: linear-gradient(180deg, #2b6af5 0%, #1e57e9 100%); }
+            .bg-circles .circle.large { background: #ffffff; }
+            .bg-circles .circle.xlarge { background: linear-gradient(180deg, #2b6af5 0%, #1e57e9 100%); }
+            .bg-circles .circle.xxlarge { background: #ffffff; }
+            .small { width: 200px; height: 200px; left: -100px; bottom: -100px; }
+            .medium { width: 400px; height: 400px; left: -200px; bottom: -200px; }
+            .large { width: 600px; height: 600px; left: -300px; bottom: -300px; }
+            .xlarge { width: 800px; height: 800px; left: -400px; bottom: -400px; }
+            .xxlarge { width: 1000px; height: 1000px; left: -500px; bottom: -500px; }
+            .shade1 { opacity: 0.15; }
+            .shade2 { opacity: 0.25; }
+            .shade3 { opacity: 0.35; }
+            .shade4 { opacity: 0.45; }
+            .shade5 { opacity: 0.55; }
+            @keyframes ripple { 0% { transform: scale(0.8); } 50% { transform: scale(1.2); } 100% { transform: scale(0.8); } }
 
             /* Teks hero di kiri */
             .login-hero {
@@ -119,10 +159,67 @@
                 cursor: not-allowed; /* placeholder saja */
             }
         </style>
+        <style>
+            :root {
+                --greenSeaweed: rgba(2, 128, 144, 1);
+                --blueQueen: rgba(69, 105, 144, 1);
+                --redFire: rgba(244, 91, 105, 1);
+            }
+
+            /* Adaptasi gaya .login menjadi .login-card tanpa mengubah layout absolute */
+            .login-card {
+                overflow: hidden;
+                background-color: #ffffff;
+                padding: 40px 30px 30px 30px;
+                border-radius: 10px;
+                position: relative; /* tetap mengikuti flex container */
+                transition: transform 300ms, box-shadow 300ms;
+                box-shadow: 5px 10px 10px rgba(2, 128, 144, 0.2);
+            }
+
+            .login-card::before,
+            .login-card::after {
+                content: '';
+                position: absolute;
+                width: 600px;
+                height: 600px;
+                border-top-left-radius: 40%;
+                border-top-right-radius: 45%;
+                border-bottom-left-radius: 35%;
+                border-bottom-right-radius: 40%;
+                z-index: -1;
+            }
+
+            .login-card::before {
+                left: 40%;
+                bottom: -130%;
+                background-color: rgba(69, 105, 144, 0.15); /* blueQueen */
+                animation: wawes 6s infinite linear;
+            }
+
+            .login-card::after {
+                left: 35%;
+                bottom: -125%;
+                background-color: rgba(2, 128, 144, 0.2); /* greenSeaweed */
+                animation: wawes 7s infinite;
+            }
+
+            @keyframes wawes {
+                from { transform: rotate(0); }
+                to { transform: rotate(360deg); }
+            }
+        </style>
         <link rel="icon" type="image/png" href="{{ asset('storage/stm.png') }}">
     </head>
     <body class="font-sans text-gray-900 antialiased auth-bg">
         <div class="bg-overlay"></div>
+        <div class="bg-circles">
+            <div class="circle small shade1"></div>
+            <div class="circle medium shade2"></div>
+            <div class="circle large shade3"></div>
+            <div class="circle xlarge shade4"></div>
+            <div class="circle xxlarge shade5"></div>
+        </div>
         <div class="min-h-screen flex items-center justify-center relative z-10">
             <div class="w-full max-w-6xl px-6">
                 <div class="flex flex-col lg:flex-row items-start lg:items-start justify-start lg:justify-between gap-6 lg:gap-8 px-4 md:px-6">
@@ -136,7 +233,7 @@
                     </div>
 
                     <!-- Kanan: kartu login transparan -->
-                    <div class="w-full lg:w-[360px] flex-none order-2">
+                    <div class="w-full md:w-[480px] md:mx-auto lg:w-[380px] flex-none order-2">
                         <div class="login-card w-full mx-auto px-6 py-6 rounded-2xl">
                             {{ $slot }}
                         </div>

@@ -25,7 +25,10 @@ function updateTime() {
   const timeString = `${hours}:${minutes}:${seconds}`;
   const el = document.getElementById('currentTime');
   if (el) el.textContent = timeString;
+
+  // UI clock flip now handled by startTime(); keep text update for compatibility
 }
+
 
 const HIGHLIGHT_MINUTES = 10; // durasi highlight setelah waktu masuk
 const CHECK_INTERVAL_MS = 10000; // interval cek agar responsif
@@ -89,6 +92,11 @@ document.addEventListener('DOMContentLoaded', () => {
   setInterval(updateTime, 1000);
   checkPrayerTime();
   setInterval(checkPrayerTime, CHECK_INTERVAL_MS);
+
+
+  // Analog clock handled by window.onload per latest specification
+
+  // Radio button audio player dinonaktifkan untuk mencegah error audio eksternal
 
   // Kaifiyah: tile expandable - tampilkan konten di dalam tile yang diklik
   const tiles = Array.from(document.querySelectorAll('.kaifiyah-tile'));
@@ -211,3 +219,5 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
+
+// Bagian jam (flip/analog) dihapus sesuai permintaan

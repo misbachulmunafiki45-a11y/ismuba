@@ -1,15 +1,18 @@
 <div class="card prayer-time">
-    <div class="time-header">
-        <span class="time-icon" aria-hidden="true">🕒</span>
-        <h3>Waktu Saat Ini</h3>
+    <div class="digital-clock-wrapper">
+        <div class="clock-label hover-title" aria-label="HOVER OVER ME!">
+            <span>W</span><span>A</span><span>V</span><span>E</span><span>R</span><span>&nbsp;
+            </span><span>O</span><span>V</span><span>E</span><span>R</span><span>&nbsp;
+            </span><span>M</span><span>E</span><span>!</span>
+        </div>
+        <div class="digital-clock" id="currentTime">00:00:00</div>
     </div>
-    <div id="currentTime" class="time-display">--:--:--</div>
 </div>
 <div class="card">
-    <h2>Jadwal Sholat Hari Ini</h2>
+    <h2>Jadwal Sholat</h2>
     <div class="prayer-grid">
         <div class="prayer-card">
-            <div class="prayer-name">Hari / Tanggal</div>
+            <div class="prayer-name">Date</div>
             <div class="prayer-time-value">{{ $prayerDate['day'] ?? '-' }}</div>
             <div style="margin-top:2px; font-size:0.95rem; opacity:0.9;">{{ $prayerDate['date'] ?? '-' }}</div>
         </div>

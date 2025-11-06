@@ -861,3 +861,516 @@ html {
 @media (hover: none) {
     .image-flexbox-card:hover { transform: none; }
 }
+
+/* Clock theme (homepage current time) */
+.prayer-time .clock-wrapper {
+    position: relative;
+    z-index: 1;
+    display: inline-block;
+    margin: 33.5vmin 8.5vmin;
+    width: 83vmin;
+    height: 26.5vmin;
+}
+.prayer-time .clock-wrapper::before {
+    right: 5vmin;
+    bottom: -4vmin;
+    left: 5vmin;
+    display: block;
+    height: 4vmin;
+    background: #eadfb5; /* map-get($colors-beige, 200) */
+    border-top: 1vmin solid #6ac5a9; /* map-get($colors-green, 300) */
+    content: '';
+    transform: perspective(200px) rotateX(10deg);
+}
+.prayer-time .clock-wrapper::after {
+    bottom: -4vmin;
+    z-index: -1;
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: #6ac5a9; /* map-get($colors-green, 300) */
+    border-radius: 1vmin;
+    content: '';
+    transform: perspective(100vmin) rotateX(60deg) skew(60deg);
+    transform-origin: bottom right;
+}
+.prayer-time .clock-wrapper .bg {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #eeead1; /* map-get($colors-beige, 100) */
+    border-radius: 1vmin;
+}
+.prayer-time {
+    /* Ubah background agar teks berwarna kontras tidak menyatu */
+    background: #0f1b2a; /* biru tua kehitaman untuk kontras tinggi */
+    text-align: center;
+    font-family: 'ATC Duel', Arial, sans-serif;
+}
+/* Flex container untuk menaruh label di samping jam */
+/* Sembunyikan seluruh komponen jam pada kartu prayer-time */
+.prayer-time .clock,
+.prayer-time .clock-wrapper {
+    display: none !important;
+}
+.prayer-time .clock-wrapper .knob {
+    position: absolute;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.25);
+    box-shadow: inset 0 0 12px rgba(0,0,0,0.15);
+}
+.prayer-time .clock-wrapper .knob-lines {
+    position: relative;
+    width: 120px;
+    height: 120px;
+}
+.prayer-time .clock-wrapper .knob-line {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 2px;
+    height: 40px;
+    background: rgba(255,255,255,0.55);
+    transform-origin: center -20px;
+}
+/* Distribute 15 lines around the circle */
+.prayer-time .clock-wrapper #knob-lines .knob-line:nth-child(1)  { transform: translate(-50%, -50%) rotate(0deg); }
+.prayer-time .clock-wrapper #knob-lines .knob-line:nth-child(2)  { transform: translate(-50%, -50%) rotate(24deg); }
+.prayer-time .clock-wrapper #knob-lines .knob-line:nth-child(3)  { transform: translate(-50%, -50%) rotate(48deg); }
+.prayer-time .clock-wrapper #knob-lines .knob-line:nth-child(4)  { transform: translate(-50%, -50%) rotate(72deg); }
+.prayer-time .clock-wrapper #knob-lines .knob-line:nth-child(5)  { transform: translate(-50%, -50%) rotate(96deg); }
+.prayer-time .clock-wrapper #knob-lines .knob-line:nth-child(6)  { transform: translate(-50%, -50%) rotate(120deg); }
+.prayer-time .clock-wrapper #knob-lines .knob-line:nth-child(7)  { transform: translate(-50%, -50%) rotate(144deg); }
+.prayer-time .clock-wrapper #knob-lines .knob-line:nth-child(8)  { transform: translate(-50%, -50%) rotate(168deg); }
+.prayer-time .clock-wrapper #knob-lines .knob-line:nth-child(9)  { transform: translate(-50%, -50%) rotate(192deg); }
+.prayer-time .clock-wrapper #knob-lines .knob-line:nth-child(10) { transform: translate(-50%, -50%) rotate(216deg); }
+.prayer-time .clock-wrapper #knob-lines .knob-line:nth-child(11) { transform: translate(-50%, -50%) rotate(240deg); }
+.prayer-time .clock-wrapper #knob-lines .knob-line:nth-child(12) { transform: translate(-50%, -50%) rotate(264deg); }
+.prayer-time .clock-wrapper #knob-lines .knob-line:nth-child(13) { transform: translate(-50%, -50%) rotate(288deg); }
+.prayer-time .clock-wrapper #knob-lines .knob-line:nth-child(14) { transform: translate(-50%, -50%) rotate(312deg); }
+.prayer-time .clock-wrapper #knob-lines .knob-line:nth-child(15) { transform: translate(-50%, -50%) rotate(336deg); }
+
+.prayer-time .clock-wrapper .logo {
+    font-weight: 800;
+    color: #fff;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.25);
+}
+
+.prayer-time .clock-wrapper .minutes,
+.prayer-time .clock-wrapper .hours,
+.prayer-time .clock-wrapper .unites,
+.prayer-time .clock-wrapper .dizaines,
+.prayer-time .clock-wrapper .number,
+.prayer-time .clock-wrapper .logo,
+.prayer-time .clock-wrapper .btn,
+.prayer-time .clock-wrapper .seconds-wrapper,
+.prayer-time .clock-wrapper .seconds,
+.prayer-time .clock-wrapper .second,
+.prayer-time .clock-wrapper .seconds-wrapper::before,
+.prayer-time .clock-wrapper::before,
+.prayer-time .clock-wrapper::after,
+.prayer-time .clock-wrapper .up,
+.prayer-time .clock-wrapper .down,
+.prayer-time .clock-wrapper .digit,
+.prayer-time .clock-wrapper .knob,
+.prayer-time .clock-wrapper .knob-lines,
+.prayer-time .clock-wrapper .hours::before,
+.prayer-time .clock-wrapper .bg { position: absolute; }
+
+.prayer-time .clock-wrapper .dizaines,
+.prayer-time .clock-wrapper .unites { display: flex; }
+.prayer-time .clock-wrapper .number { display: none; }
+.prayer-time .clock-wrapper .number.active { display: block; }
+.prayer-time .clock-wrapper .number.is-active,
+.prayer-time .clock-wrapper .number.outgoing { display: block; }
+.prayer-time .clock-wrapper .digit {
+    display: inline-block;
+    min-width: 40px;
+    text-align: center;
+    color: #fff;
+    font-size: 2.6rem;
+    font-weight: 800;
+    line-height: 1.1;
+    text-shadow: 1px 2px 3px rgba(0,0,0,0.25);
+}
+.prayer-time .clock-wrapper .colon {
+    color: #fff;
+    font-size: 2.4rem;
+    font-weight: 700;
+}
+
+.prayer-time .clock-wrapper .seconds-wrapper {
+    top: 5vmin;
+    right: 16vmin;
+    bottom: 5vmin;
+    width: 8vmin;
+    overflow: hidden;
+    background: #472c4b; /* map-get($colors-purple, 200) */
+    border-radius: 0.5vmin;
+}
+.prayer-time .clock-wrapper .seconds-wrapper::before {
+    top: 50%;
+    left: 0;
+    z-index: 1;
+    display: block;
+    border: 1vmin solid transparent;
+    border-right-width: 3.66vmin;
+    border-left: 3.66vmin solid #f85302; /* map-get($colors-red, 100) */
+    content: '';
+    transform: translateY(-50%);
+}
+.prayer-time .clock-wrapper .seconds {
+    top: 50%;
+    margin-top: 1.3vmin;
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+    animation: secondsTick 60s infinite linear;
+    animation-play-state: paused;
+}
+.prayer-time .clock-wrapper .second {
+    font-size: 1.5vmin;
+    color: #fdb800; /* map-get($colors-yellow, 100) */
+    text-align: center;
+    white-space: nowrap;
+    line-height: 2.6vmin;
+    letter-spacing: 0.05em;
+    backface-visibility: hidden;
+}
+.prayer-time .clock-wrapper .second::before {
+    display: inline-block;
+    margin: -0.3vmin 1.3vmin 0 1vmin;
+    width: 2.6vmin;
+    height: 0.26vmin;
+    background: currentColor;
+    content: '';
+    vertical-align: middle;
+}
+
+/* Generate ring positions for seconds 1..60 */
+.prayer-time .clock-wrapper .seconds .second:nth-child(1)  { transform: rotateX(6deg)   translateZ(24.737347581vmin); }
+.prayer-time .clock-wrapper .seconds .second:nth-child(2)  { transform: rotateX(12deg)  translateZ(24.737347581vmin); }
+.prayer-time .clock-wrapper .seconds .second:nth-child(3)  { transform: rotateX(18deg)  translateZ(24.737347581vmin); }
+.prayer-time .clock-wrapper .seconds .second:nth-child(4)  { transform: rotateX(24deg)  translateZ(24.737347581vmin); }
+.prayer-time .clock-wrapper .seconds .second:nth-child(5)  { transform: rotateX(30deg)  translateZ(24.737347581vmin); }
+.prayer-time .clock-wrapper .seconds .second:nth-child(6)  { transform: rotateX(36deg)  translateZ(24.737347581vmin); }
+.prayer-time .clock-wrapper .seconds .second:nth-child(7)  { transform: rotateX(42deg)  translateZ(24.737347581vmin); }
+.prayer-time .clock-wrapper .seconds .second:nth-child(8)  { transform: rotateX(48deg)  translateZ(24.737347581vmin); }
+.prayer-time .clock-wrapper .seconds .second:nth-child(9)  { transform: rotateX(54deg)  translateZ(24.737347581vmin); }
+.prayer-time .clock-wrapper .seconds .second:nth-child(10) { transform: rotateX(60deg)  translateZ(24.737347581vmin); }
+.prayer-time .clock-wrapper .seconds .second:nth-child(11) { transform: rotateX(66deg)  translateZ(24.737347581vmin); }
+.prayer-time .clock-wrapper .seconds .second:nth-child(12) { transform: rotateX(72deg)  translateZ(24.737347581vmin); }
+.prayer-time .clock-wrapper .seconds .second:nth-child(13) { transform: rotateX(78deg)  translateZ(24.737347581vmin); }
+.prayer-time .clock-wrapper .seconds .second:nth-child(14) { transform: rotateX(84deg)  translateZ(24.737347581vmin); }
+.prayer-time .clock-wrapper .seconds .second:nth-child(15) { transform: rotateX(90deg)  translateZ(24.737347581vmin); }
+.prayer-time .clock-wrapper .seconds .second:nth-child(16) { transform: rotateX(96deg)  translateZ(24.737347581vmin); }
+.prayer-time .clock-wrapper .seconds .second:nth-child(17) { transform: rotateX(102deg) translateZ(24.737347581vmin); }
+.prayer-time .clock-wrapper .seconds .second:nth-child(18) { transform: rotateX(108deg) translateZ(24.737347581vmin); }
+.prayer-time .clock-wrapper .seconds .second:nth-child(19) { transform: rotateX(114deg) translateZ(24.737347581vmin); }
+.prayer-time .clock-wrapper .seconds .second:nth-child(20) { transform: rotateX(120deg) translateZ(24.737347581vmin); }
+.prayer-time .clock-wrapper .seconds .second:nth-child(21) { transform: rotateX(126deg) translateZ(24.737347581vmin); }
+.prayer-time .clock-wrapper .seconds .second:nth-child(22) { transform: rotateX(132deg) translateZ(24.737347581vmin); }
+.prayer-time .clock-wrapper .seconds .second:nth-child(23) { transform: rotateX(138deg) translateZ(24.737347581vmin); }
+.prayer-time .clock-wrapper .seconds .second:nth-child(24) { transform: rotateX(144deg) translateZ(24.737347581vmin); }
+.prayer-time .clock-wrapper .seconds .second:nth-child(25) { transform: rotateX(150deg) translateZ(24.737347581vmin); }
+.prayer-time .clock-wrapper .seconds .second:nth-child(26) { transform: rotateX(156deg) translateZ(24.737347581vmin); }
+.prayer-time .clock-wrapper .seconds .second:nth-child(27) { transform: rotateX(162deg) translateZ(24.737347581vmin); }
+.prayer-time .clock-wrapper .seconds .second:nth-child(28) { transform: rotateX(168deg) translateZ(24.737347581vmin); }
+.prayer-time .clock-wrapper .seconds .second:nth-child(29) { transform: rotateX(174deg) translateZ(24.737347581vmin); }
+.prayer-time .clock-wrapper .seconds .second:nth-child(30) { transform: rotateX(180deg) translateZ(24.737347581vmin); }
+.prayer-time .clock-wrapper .seconds .second:nth-child(31) { transform: rotateX(186deg) translateZ(24.737347581vmin); }
+.prayer-time .clock-wrapper .seconds .second:nth-child(32) { transform: rotateX(192deg) translateZ(24.737347581vmin); }
+.prayer-time .clock-wrapper .seconds .second:nth-child(33) { transform: rotateX(198deg) translateZ(24.737347581vmin); }
+.prayer-time .clock-wrapper .seconds .second:nth-child(34) { transform: rotateX(204deg) translateZ(24.737347581vmin); }
+.prayer-time .clock-wrapper .seconds .second:nth-child(35) { transform: rotateX(210deg) translateZ(24.737347581vmin); }
+.prayer-time .clock-wrapper .seconds .second:nth-child(36) { transform: rotateX(216deg) translateZ(24.737347581vmin); }
+.prayer-time .clock-wrapper .seconds .second:nth-child(37) { transform: rotateX(222deg) translateZ(24.737347581vmin); }
+.prayer-time .clock-wrapper .seconds .second:nth-child(38) { transform: rotateX(228deg) translateZ(24.737347581vmin); }
+.prayer-time .clock-wrapper .seconds .second:nth-child(39) { transform: rotateX(234deg) translateZ(24.737347581vmin); }
+.prayer-time .clock-wrapper .seconds .second:nth-child(40) { transform: rotateX(240deg) translateZ(24.737347581vmin); }
+.prayer-time .clock-wrapper .seconds .second:nth-child(41) { transform: rotateX(246deg) translateZ(24.737347581vmin); }
+.prayer-time .clock-wrapper .seconds .second:nth-child(42) { transform: rotateX(252deg) translateZ(24.737347581vmin); }
+.prayer-time .clock-wrapper .seconds .second:nth-child(43) { transform: rotateX(258deg) translateZ(24.737347581vmin); }
+.prayer-time .clock-wrapper .seconds .second:nth-child(44) { transform: rotateX(264deg) translateZ(24.737347581vmin); }
+.prayer-time .clock-wrapper .seconds .second:nth-child(45) { transform: rotateX(270deg) translateZ(24.737347581vmin); }
+.prayer-time .clock-wrapper .seconds .second:nth-child(46) { transform: rotateX(276deg) translateZ(24.737347581vmin); }
+.prayer-time .clock-wrapper .seconds .second:nth-child(47) { transform: rotateX(282deg) translateZ(24.737347581vmin); }
+.prayer-time .clock-wrapper .seconds .second:nth-child(48) { transform: rotateX(288deg) translateZ(24.737347581vmin); }
+.prayer-time .clock-wrapper .seconds .second:nth-child(49) { transform: rotateX(294deg) translateZ(24.737347581vmin); }
+.prayer-time .clock-wrapper .seconds .second:nth-child(50) { transform: rotateX(300deg) translateZ(24.737347581vmin); }
+.prayer-time .clock-wrapper .seconds .second:nth-child(51) { transform: rotateX(306deg) translateZ(24.737347581vmin); }
+.prayer-time .clock-wrapper .seconds .second:nth-child(52) { transform: rotateX(312deg) translateZ(24.737347581vmin); }
+.prayer-time .clock-wrapper .seconds .second:nth-child(53) { transform: rotateX(318deg) translateZ(24.737347581vmin); }
+.prayer-time .clock-wrapper .seconds .second:nth-child(54) { transform: rotateX(324deg) translateZ(24.737347581vmin); }
+.prayer-time .clock-wrapper .seconds .second:nth-child(55) { transform: rotateX(330deg) translateZ(24.737347581vmin); }
+.prayer-time .clock-wrapper .seconds .second:nth-child(56) { transform: rotateX(336deg) translateZ(24.737347581vmin); }
+.prayer-time .clock-wrapper .seconds .second:nth-child(57) { transform: rotateX(342deg) translateZ(24.737347581vmin); }
+.prayer-time .clock-wrapper .seconds .second:nth-child(58) { transform: rotateX(348deg) translateZ(24.737347581vmin); }
+.prayer-time .clock-wrapper .seconds .second:nth-child(59) { transform: rotateX(354deg) translateZ(24.737347581vmin); }
+.prayer-time .clock-wrapper .seconds .second:nth-child(60) { transform: rotateX(360deg) translateZ(24.737347581vmin); }
+
+/* Keyframes for seconds ring (paused by default) */
+@-webkit-keyframes secondsTick { 0% { -webkit-transform: rotateX(0deg); } 100% { -webkit-transform: rotateX(-360deg); } }
+@-moz-keyframes secondsTick    { 0% { -moz-transform: rotateX(0deg); }   100% { -moz-transform: rotateX(-360deg); } }
+@-ms-keyframes secondsTick     { 0% { -ms-transform: rotateX(0deg); }    100% { -ms-transform: rotateX(-360deg); } }
+@keyframes secondsTick         { 0% { transform: rotateX(0deg); }        100% { transform: rotateX(-360deg); } }
+
+/* Buttons within clock wrapper */
+.prayer-time .clock-wrapper .btn {
+    top: 12.5vmin;
+    right: 5vmin;
+    padding: 1.3vmin 0 1.1vmin;
+    width: 6.5vmin;
+    background: currentColor;
+    box-shadow: inset 0 0 3vmin rgba(0,0,0,0.2), 0 0 6vmin rgba(125, 255, 210, 0.75); /* lighten green(100) approx */
+    color: #10ffa6; /* map-get($colors-green, 100) */
+    line-height: 1;
+    font-family: 'ATC Timberline', Arial, sans-serif;
+    font-size: 1vmin;
+    text-transform: uppercase;
+    text-align: center;
+}
+.prayer-time .clock-wrapper .btn span { color: #ffffff; transition: color 0.3s; }
+
+.prayer-time .clock-wrapper .radio-btn {
+    top: auto;
+    bottom: 5vmin;
+    cursor: pointer;
+    box-shadow: inset 0 0 3vmin rgba(0,0,0,0.2), 0 0 6vmin rgba(102, 247, 255, 0.75); /* lighten blue(100) approx */
+    color: #00f1ff; /* map-get($colors-blue, 100) */
+    transition: box-shadow 0.3s;
+}
+.prayer-time .clock-wrapper .radio-btn span { color: rgba(255,255,255,0.7); }
+
+/* Button hover/active states */
+.prayer-time .clock-wrapper .btn:hover,
+.prayer-time .clock-wrapper .btn.is-active,
+.prayer-time .clock-wrapper .radio-btn:hover,
+.prayer-time .clock-wrapper .radio-btn.is-active {
+    box-shadow: inset 0 0 3vmin rgba(0,0,0,0.3), 0 0 6vmin rgba(102, 247, 255, 1);
+}
+.prayer-time .clock-wrapper .btn:hover span,
+.prayer-time .clock-wrapper .btn.is-active span,
+.prayer-time .clock-wrapper .radio-btn:hover span,
+.prayer-time .clock-wrapper .radio-btn.is-active span { color: #ffffff; }
+
+/* Logo positioning and style */
+.prayer-time .clock-wrapper .logo {
+    top: 5vmin;
+    right: 5vmin;
+    font-family: 'ATC Timberline', Arial, sans-serif;
+    color: #472c4b; /* map-get($colors-purple, 200) */
+    text-transform: uppercase;
+    font-size: 2.6vmin;
+    line-height: 1;
+}
+
+/* Hours & Minutes columns */
+.prayer-time .clock-wrapper .minutes,
+.prayer-time .clock-wrapper .hours {
+    top: 6vmin;
+    bottom: 6vmin;
+    width: 25vmin;
+}
+.prayer-time .clock-wrapper .minutes { right: 26vmin; }
+.prayer-time .clock-wrapper .hours { left: 5vmin; }
+.prayer-time .clock-wrapper .unites,
+.prayer-time .clock-wrapper .dizaines { width: calc(50% - 1vmin); }
+.prayer-time .clock-wrapper .unites { right: 0; }
+.prayer-time .clock-wrapper .dizaines { left: 0; }
+
+.prayer-time .clock-wrapper .hours::before {
+    top: 50%;
+    right: -1.3vmin;
+    display: block;
+    margin-top: -2vmin;
+    width: 0.8vmin;
+    height: 4vmin;
+    background: #6e4875; /* map-get($colors-purple, 100) */
+    content: '';
+}
+
+/* Number tiles with in/out animations */
+.prayer-time .clock-wrapper .number {
+    width: 100%;
+    height: 16.5vmin;
+    color: #fdb800; /* map-get($colors-yellow, 100) */
+    font-size: 12vmin;
+    line-height: 16vmin;
+    border-radius: 0.8vmin;
+    position: relative;
+}
+/* Removed legacy flip clock styles (.clock-wrapper) */
+/* Removed legacy analog clock styles (.prayer-time .clock) */
+
+/* Removed legacy analog clock numbers (.clock ul li) */
+
+/* Digital clock (replaces analog) */
+.prayer-time .digital-clock-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.prayer-time .digital-clock {
+    color: #ffffff; /* tetap putih, kontras di background gelap */
+    font-weight: 700;
+    font-family: Arial, Helvetica, sans-serif;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 1px;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.6);
+    line-height: 1;
+    /* Responsive size: desktop ~72px, tablet ~56px, mobile ~36px */
+    font-size: clamp(36px, 8vmin, 72px);
+    user-select: none;
+}
+
+@media (max-width: 768px) {
+    .prayer-time .digital-clock { font-size: clamp(28px, 10vmin, 56px); }
+}
+/* Removed legacy analog clock numbers (10-12) */
+
+/*  footer  */
+footer {
+  background-color: #222;
+  color: #fff;
+  font-size: 14px;
+  bottom: 0;
+  position: fixed;
+  left: 0;
+  right: 0;
+  text-align: center;
+  z-index: 999;
+}
+
+footer p {
+  margin: 10px 0;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida  Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}
+footer .fa-heart {
+  color: red;
+}
+footer .fa-dev {
+  color: #fff;
+}
+footer .fa-twitter-square {
+  color: #1da0f1;
+}
+footer .fa-instagram {
+  color: #f0007c;
+}
+fotter .fa-linkedin {
+  color: #0073b1;
+}
+footer .fa-codepen {
+  color: #fff;
+}
+footer a {
+  color: #3c97bf;
+  text-decoration: none;
+  margin-right: 5px;
+}
+.youtubeBtn {
+  position: fixed;
+  left: 50%;
+  transform: translatex(-50%);
+  bottom: 45px;
+  cursor: pointer;
+  transition: all 0.3s;
+  vertical-align: middle;
+  text-align: center;
+  display: inline-block;
+}
+.youtubeBtn i {
+  font-size: 20px;
+  float: left;
+}
+.youtubeBtn a {
+  color: #ff0000;
+  animation: youtubeAnim 1000ms linear infinite;
+  float: right;
+}
+.youtubeBtn a:hover {
+  color: #c9110f;
+  transition: all 0.3s ease-in-out;
+}
+.youtubeBtn i:active {
+  transform: scale(0.9);
+  transition: all 0.3s ease-in-out;
+}
+
+@keyframes youtubeAnim {
+  0%,
+  100% {
+    color: #c9110f;
+  }
+  50% {
+    color: #ff0000;
+  }
+}
+/* end footer */
+/* === Hover Over Me! heading effect (Signika) === */
+@import url('https://fonts.googleapis.com/css2?family=Signika:wght@300;600;700&display=swap');
+
+.hover-title-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0;
+  text-align: center;
+}
+
+.hover-title {
+  /* mengikuti spesifikasi: font:bold 7.5vw/1.6 'Signika', sans-serif */
+  font: bold 7.5vw/1.6 'Signika', sans-serif;
+  font-size: 5em; /* fallback untuk layar besar */
+  user-select: none;
+  line-height: 1.2; /* sedikit rapat agar tidak memakan tinggi */
+}
+
+.hover-title span {
+  display: inline-block;
+  animation: float .2s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: none; }
+  33% { transform: translateY(-1px) rotate(-2deg); }
+  66% { transform: translateY(1px) rotate(2deg); }
+}
+
+.hover-title-wrap:hover .hover-title span { animation: bounce .6s; }
+
+@keyframes bounce {
+  0%, 100% { transform: translate(0); }
+  25% { transform: rotateX(20deg) translateY(2px) rotate(-3deg); }
+  50% { transform: translateY(-20px) rotate(3deg) scale(1.1); }
+}
+
+.hover-title span:nth-child(4n)   { color: hsl(50, 75%, 55%);  text-shadow: 1px 1px hsl(50, 75%, 45%), 2px 2px hsl(50, 45%, 45%), 3px 3px hsl(50, 45%, 45%), 4px 4px hsl(50, 75%, 45%); }
+.hover-title span:nth-child(4n-1) { color: hsl(135, 35%, 55%); text-shadow: 1px 1px hsl(135, 35%, 45%), 2px 2px hsl(135, 35%, 45%), 3px 3px hsl(135, 35%, 45%), 4px 4px hsl(135, 35%, 45%); }
+.hover-title span:nth-child(4n-2) { color: hsl(155, 35%, 60%); text-shadow: 1px 1px hsl(155, 25%, 50%), 2px 2px hsl(155, 25%, 50%), 3px 3px hsl(155, 25%, 50%), 4px 4px hsl(140, 25%, 50%); }
+.hover-title span:nth-child(4n-3) { color: hsl(30, 65%, 60%);  text-shadow: 1px 1px hsl(30, 45%, 50%), 2px 2px hsl(30, 45%, 50%), 3px 3px hsl(30, 45%, 50%), 4px 4px hsl(30, 45%, 50%); }
+
+.hover-title span:nth-child(2)  { animation-delay: .05s; }
+.hover-title span:nth-child(3)  { animation-delay: .1s; }
+.hover-title span:nth-child(4)  { animation-delay: .15s; }
+.hover-title span:nth-child(5)  { animation-delay: .2s; }
+.hover-title span:nth-child(6)  { animation-delay: .25s; }
+.hover-title span:nth-child(7)  { animation-delay: .3s; }
+.hover-title span:nth-child(8)  { animation-delay: .35s; }
+.hover-title span:nth-child(9)  { animation-delay: .4s; }
+.hover-title span:nth-child(10) { animation-delay: .45s; }
+.hover-title span:nth-child(11) { animation-delay: .5s; }
+.hover-title span:nth-child(12) { animation-delay: .55s; }
+.hover-title span:nth-child(13) { animation-delay: .6s; }
+.hover-title span:nth-child(14) { animation-delay: .65s; }
+
+@media (max-width: 768px) {
+  /* lebih ramah ponsel: gunakan clamp untuk mengontrol ukuran */
+  .hover-title { font-size: clamp(28px, 9vw, 64px); }
+}
