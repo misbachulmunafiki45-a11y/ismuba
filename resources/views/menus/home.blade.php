@@ -1,9 +1,9 @@
 <div class="card prayer-time">
     <div class="digital-clock-wrapper">
         <div class="clock-label hover-title" aria-label="HOVER OVER ME!">
-            <span>W</span><span>A</span><span>V</span><span>E</span><span>R</span><span>&nbsp;
-            </span><span>O</span><span>V</span><span>E</span><span>R</span><span>&nbsp;
-            </span><span>M</span><span>E</span><span>!</span>
+            <span>W</span><span>A</span><span>K</span><span>T</span><span>U</span><span>&nbsp;
+            </span><span>S</span><span>A</span><span>A</span><span>T</span><span>&nbsp;
+            </span><span>I</span><span>N</span><span>I</span>
         </div>
         <div class="digital-clock" id="currentTime">00:00:00</div>
     </div>

@@ -25,13 +25,18 @@
             .bg-overlay {
                 position: fixed;
                 inset: 0;
-                background: rgba(10, 20, 40, 0.45); /* sedikit lebih terang agar lingkaran terlihat */
+                background: linear-gradient(90deg,
+                    rgba(8, 16, 32, 0.48) 0%,
+                    rgba(10, 20, 40, 0.36) 30%,
+                    rgba(16, 26, 52, 0.16) 65%,
+                    rgba(6, 12, 28, 0.00) 100%
+                ); /* lebih gelap di kiri, memudar lebih cepat ke kanan */
                 pointer-events: none;
-                z-index: 1; /* overlay di atas elemen dekoratif */
+                z-index: 2; /* di bawah dekorasi agar warna tidak pucat */
             }
 
             /* Dekorasi ripple circles di background */
-            .bg-circles { position: fixed; inset: 0; pointer-events: none; z-index: 2; }
+            .bg-circles { position: fixed; inset: 0; pointer-events: none; z-index: 1; }
             .circle { position: absolute; border-radius: 50%; background: #1e57e9; animation: ripple 15s infinite; box-shadow: 0 0 1px 0 #508fb9; }
             .bg-circles > .circle:nth-child(odd) { background: #1e57e9; }
             .bg-circles > .circle:nth-child(even) { background: #ffffff; }
@@ -77,7 +82,7 @@
             .login-hero .brand {
                 letter-spacing: 3px;
                 font-weight: 600;
-                opacity: 0.9;
+                opacity: 1;
                 text-shadow: 0 2px 8px rgba(0,0,0,0.55);
             }
             .login-hero .brand-quote {
@@ -93,7 +98,7 @@
             }
             .login-hero .subcopy {
                 max-width: 520px;
-                opacity: 0.95;
+                opacity: 1;
                 text-shadow: 0 2px 12px rgba(0,0,0,0.6);
             }
 
@@ -169,12 +174,13 @@
             /* Adaptasi gaya .login menjadi .login-card tanpa mengubah layout absolute */
             .login-card {
                 overflow: hidden;
-                background-color: #ffffff;
+                background-color: rgba(255, 255, 255, 0.92);
+                color: #1f2937; /* teks dalam kartu lebih gelap untuk keterbacaan */
                 padding: 40px 30px 30px 30px;
-                border-radius: 10px;
+                border-radius: 16px;
                 position: relative; /* tetap mengikuti flex container */
                 transition: transform 300ms, box-shadow 300ms;
-                box-shadow: 5px 10px 10px rgba(2, 128, 144, 0.2);
+                box-shadow: 0 18px 40px rgba(0, 0, 0, 0.25);
             }
 
             .login-card::before,
@@ -193,14 +199,14 @@
             .login-card::before {
                 left: 40%;
                 bottom: -130%;
-                background-color: rgba(69, 105, 144, 0.15); /* blueQueen */
+                background-color: rgba(69, 105, 144, 0.12); /* sedikit lebih lembut */
                 animation: wawes 6s infinite linear;
             }
 
             .login-card::after {
                 left: 35%;
                 bottom: -125%;
-                background-color: rgba(2, 128, 144, 0.2); /* greenSeaweed */
+                background-color: rgba(2, 128, 144, 0.16); /* sedikit lebih lembut */
                 animation: wawes 7s infinite;
             }
 
@@ -220,7 +226,7 @@
             <div class="circle xlarge shade4"></div>
             <div class="circle xxlarge shade5"></div>
         </div>
-        <div class="min-h-screen flex items-center justify-center relative z-10">
+        <div class="min-h-screen flex items-center justify-center relative z-50">
             <div class="w-full max-w-6xl px-6">
                 <div class="flex flex-col lg:flex-row items-start lg:items-start justify-start lg:justify-between gap-6 lg:gap-8 px-4 md:px-6">
                     <!-- Kiri: hero teks -->
@@ -233,7 +239,7 @@
                     </div>
 
                     <!-- Kanan: kartu login transparan -->
-                    <div class="w-full md:w-[480px] md:mx-auto lg:w-[380px] flex-none order-2">
+                    <div class="w-full md:w-[360px] md:mx-auto lg:w-[360px] flex-none order-2">
                         <div class="login-card w-full mx-auto px-6 py-6 rounded-2xl">
                             {{ $slot }}
                         </div>
