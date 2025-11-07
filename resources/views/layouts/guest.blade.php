@@ -215,6 +215,7 @@
                 to { transform: rotate(360deg); }
             }
         </style>
+        
         <link rel="icon" type="image/png" href="{{ asset('storage/stm.png') }}">
     </head>
     <body class="font-sans text-gray-900 antialiased auth-bg">
@@ -248,4 +249,5 @@
             </div>
         </div>
     </body>
+    
 </html>

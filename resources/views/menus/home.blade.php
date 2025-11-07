@@ -9,7 +9,11 @@
     </div>
 </div>
 <div class="card">
-    <h2>Jadwal Sholat</h2>
+    <div class="wrapper">
+        <a target="_blank" href="https://x.com/atenyun" rel="noopener">
+            <h1>JADWAL SHOLAT</h1>
+        </a>
+    </div>
     <div class="prayer-grid">
         <div class="prayer-card">
             <div class="prayer-name">Date</div>
