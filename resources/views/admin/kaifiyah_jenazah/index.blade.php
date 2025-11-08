@@ -91,7 +91,7 @@
                                     <td>{{ $idx + 1 }}</td>
                                     <td class="font-weight-bold">{{ $item->title }}</td>
                                     <td>
-                                        @php $img = $item->image_path ? asset('storage/'.$item->image_path) : '/vendor/adminlte/dist/img/user2-160x160.jpg'; @endphp
+                                        @php $img = $item->image_path ? asset('storage/'.$item->image_path) : asset('vendor/adminlte/dist/img/user2-160x160.jpg'); @endphp
                                         <img src="{{ $img }}" alt="Ilustrasi" style="width:60px;height:60px;object-fit:cover;border-radius:6px;">
                                     </td>
                                     <td class="text-muted" style="white-space: normal; word-break: break-word; text-align: left;">{{ $item->description }}</td>
@@ -271,7 +271,7 @@
 @push('scripts')
 <script>
 $(function() {
-    const placeholderImg = '/vendor/adminlte/dist/img/user2-160x160.jpg';
+const placeholderImg = '{{ asset('vendor/adminlte/dist/img/user2-160x160.jpg') }}';
 
     function sanitize(text) {
         return $('<div>').text(text).html();

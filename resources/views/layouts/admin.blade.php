@@ -6,9 +6,21 @@
     <title>@yield('title', 'Admin') | ISMUBA</title>
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-    <link rel="stylesheet" href="/vendor/adminlte/plugins/fontawesome-free/css/all.min.css">
-    <link rel="stylesheet" href="/vendor/adminlte/dist/css/adminlte.min.css">
-    <link rel="stylesheet" href="/css/admin-custom.css">
+    @php
+        $faCss = public_path('vendor/adminlte/plugins/fontawesome-free/css/all.min.css');
+        $lteCss = public_path('vendor/adminlte/dist/css/adminlte.min.css');
+    @endphp
+    @if (file_exists($faCss))
+        <link rel="stylesheet" href="{{ asset('vendor/adminlte/plugins/fontawesome-free/css/all.min.css') }}">
+    @else
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-dym3BdK0g5C3v+5Jd1YoY2c1c7FQm2rjvY3tYFf7H+3dCkSsrYoXvJw9M3zJv4F1m9WvEwBvH8gJ0dV9YxZL0w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    @endif
+    @if (file_exists($lteCss))
+        <link rel="stylesheet" href="{{ asset('vendor/adminlte/dist/css/adminlte.min.css') }}">
+    @else
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/css/adminlte.min.css">
+    @endif
+    <link rel="stylesheet" href="{{ asset('css/admin-custom.css') }}">
 </head>
 <body class="hold-transition sidebar-mini admin-theme">
 <div class="wrapper">
@@ -47,7 +59,7 @@
                         <strong>{{ Auth::user()->name ?? 'Administrator' }}</strong>
                     </span>
                     <div class="dropdown-divider"></div>
-                    <a href="/admin/profile" class="dropdown-item">
+                    <a href="{{ route('admin.profile.edit') }}" class="dropdown-item">
                         <i class="fas fa-cog mr-2"></i> Edit Profile
                     </a>
                     <a href="#" class="dropdown-item" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
@@ -69,7 +81,7 @@
                         $user = Auth::user();
                         $photoUrl = ($user && $user->photo_path)
                             ? Storage::url($user->photo_path)
-                            : '/vendor/adminlte/dist/img/user2-160x160.jpg';
+                            : asset('vendor/adminlte/dist/img/user2-160x160.jpg');
                     @endphp
                     <img src="{{ $photoUrl }}" class="img-circle elevation-2" alt="User Image">
                 </div>
@@ -188,9 +200,26 @@
     </footer>
 </div>
 
-<script src="/vendor/adminlte/plugins/jquery/jquery.min.js"></script>
-<script src="/vendor/adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="/vendor/adminlte/dist/js/adminlte.min.js"></script>
+@php
+    $jqJs = public_path('vendor/adminlte/plugins/jquery/jquery.min.js');
+    $bsJs = public_path('vendor/adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js');
+    $lteJs = public_path('vendor/adminlte/dist/js/adminlte.min.js');
+@endphp
+@if (file_exists($jqJs))
+    <script src="{{ asset('vendor/adminlte/plugins/jquery/jquery.min.js') }}"></script>
+@else
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+@endif
+@if (file_exists($bsJs))
+    <script src="{{ asset('vendor/adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+@else
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+@endif
+@if (file_exists($lteJs))
+    <script src="{{ asset('vendor/adminlte/dist/js/adminlte.min.js') }}"></script>
+@else
+    <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/js/adminlte.min.js"></script>
+@endif
 @stack('scripts')
 </body>
 </html>

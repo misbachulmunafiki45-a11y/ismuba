@@ -62,7 +62,7 @@
                                     <td>{{ $index + 1 }}</td>
                                     <td class="align-middle font-weight-bold">{{ $reading->title }}</td>
                                     <td>
-                                        @php $img = $reading->image_path ? asset('storage/'.$reading->image_path) : '/vendor/adminlte/dist/img/user2-160x160.jpg'; @endphp
+                                        @php $img = $reading->image_path ? asset('storage/'.$reading->image_path) : asset('vendor/adminlte/dist/img/user2-160x160.jpg'); @endphp
                                         <img src="{{ $img }}" alt="Ilustrasi" style="width:48px;height:48px;object-fit:cover;border-radius:6px;">
                                     </td>
                                     <td class="font-weight-normal" style="font-size: 1.05rem;">
@@ -127,7 +127,7 @@
                                 <input id="inputImage" name="image" type="file" accept="image/*" class="form-control-file">
                                 <small class="form-text text-muted">Format gambar disarankan 1:1 (kotak).</small>
                                 <div class="mt-2">
-                                    <img id="previewImage" src="/vendor/adminlte/dist/img/user2-160x160.jpg" alt="Preview" style="width:64px;height:64px;border-radius:6px;object-fit:cover;display:none;" />
+<img id="previewImage" src="{{ asset('vendor/adminlte/dist/img/user2-160x160.jpg') }}" alt="Preview" style="width:64px;height:64px;border-radius:6px;object-fit:cover;display:none;" />
                                 </div>
                             </div>
                         </div>
@@ -229,7 +229,7 @@
 @push('scripts')
 <script>
 $(function() {
-    const placeholderImg = '/vendor/adminlte/dist/img/user2-160x160.jpg';
+const placeholderImg = '{{ asset('vendor/adminlte/dist/img/user2-160x160.jpg') }}';
 
     function esc(text) { return $('<div>').text(text).html(); }
 

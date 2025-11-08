@@ -12,7 +12,12 @@
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
         <!-- Scripts -->
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
+        @if (file_exists(public_path('build/manifest.json')) || file_exists(public_path('hot')))
+            @vite(['resources/css/app.css', 'resources/js/app.js'])
+        @else
+            <link rel="stylesheet" href="{{ asset('css/main.css') }}">
+            <script src="{{ asset('js/main.js') }}" defer></script>
+        @endif
         <link rel="icon" type="image/png" href="{{ asset('storage/stm.png') }}">
     </head>
     <body class="font-sans antialiased">

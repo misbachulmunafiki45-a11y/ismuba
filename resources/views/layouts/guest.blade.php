@@ -12,9 +12,16 @@
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
         <!-- Scripts -->
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
+        @if (file_exists(public_path('build/manifest.json')) || file_exists(public_path('hot')))
+            @vite(['resources/css/app.css', 'resources/js/app.js'])
+        @else
+            <link rel="stylesheet" href="{{ asset('css/main.css') }}">
+            <script src="{{ asset('js/main.js') }}" defer></script>
+        @endif
         <link rel="icon" type="image/png" href="{{ asset('storage/stm.png') }}">
         <style>
+            /* Base typography fallback (tanpa Tailwind) */
+            body { font-family: 'Figtree', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; color: #111827; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
             /* Background image full; overlay dipisah sebagai elemen fixed agar stabil di tablet */
             body.auth-bg {
                 background-image: url('{{ asset('img/masjid.jpg') }}');
@@ -74,6 +81,8 @@
             .shade4 { opacity: 0.45; }
             .shade5 { opacity: 0.55; }
             @keyframes ripple { 0% { transform: scale(0.8); } 50% { transform: scale(1.2); } 100% { transform: scale(0.8); } }
+            /* Sembunyikan dekorasi di layar kecil agar fokus pada form */
+            @media (max-width: 768px) { .bg-circles { display: none; } }
 
             /* Teks hero di kiri */
             .login-hero {
@@ -163,6 +172,26 @@
                 box-shadow: 0 6px 18px rgba(0,0,0,0.12);
                 cursor: not-allowed; /* placeholder saja */
             }
+
+            /* Fallback util classes (Tailwind-lite) untuk halaman login tanpa Vite */
+            .block { display: block; }
+            .w-full { width: 100%; }
+            .mt-1 { margin-top: 0.25rem; }
+            .text-sm { font-size: 0.875rem; }
+            .text-gray-600 { color: #4b5563; }
+            .text-gray-900 { color: #111827; }
+            .underline { text-decoration: underline; }
+            .rounded-md { border-radius: 0.375rem; }
+            .hover\:text-gray-900:hover { color: #111827; }
+            /* Fallback layout util (tanpa Tailwind) */
+            .page-wrap { min-height: 100vh; }
+            .page-inner { padding-left: 1.5rem; padding-right: 1.5rem; }
+            .layout-container { display: flex; flex-direction: column; align-items: flex-start; justify-content: flex-start; gap: 1.5rem; }
+            @media (min-width: 1024px) { .layout-container { flex-direction: row; align-items: flex-start; justify-content: space-between; gap: 2rem; } .login-hero { max-width: 680px; } }
+            .login-card-container { width: 100%; max-width: 380px; margin-left: auto; margin-right: auto; }
+            .rounded-2xl { border-radius: 1rem; }
+            .px-6 { padding-left: 1.5rem; padding-right: 1.5rem; }
+            .py-6 { padding-top: 1.5rem; padding-bottom: 1.5rem; }
         </style>
         <style>
             :root {
@@ -227,9 +256,9 @@
             <div class="circle xlarge shade4"></div>
             <div class="circle xxlarge shade5"></div>
         </div>
-        <div class="min-h-screen flex items-center justify-center relative z-50">
+        <div class="min-h-screen flex items-center justify-center relative z-50 page-wrap">
             <div class="w-full max-w-6xl px-6">
-                <div class="flex flex-col lg:flex-row items-start lg:items-start justify-start lg:justify-between gap-6 lg:gap-8 px-4 md:px-6">
+                <div class="flex flex-col lg:flex-row items-start lg:items-start justify-start lg:justify-between gap-6 lg:gap-8 px-4 md:px-6 layout-container">
                     <!-- Kiri: hero teks -->
                     <div class="login-hero w-full lg:max-w-5xl flex-1 order-1 mb-8 lg:mb-0 text-left">
                         <div class="brand text-sm mb-5">Islamic</div>
@@ -240,7 +269,7 @@
                     </div>
 
                     <!-- Kanan: kartu login transparan -->
-                    <div class="w-full md:w-[360px] md:mx-auto lg:w-[360px] flex-none order-2">
+                    <div class="w-full md:w-[360px] md:mx-auto lg:w-[360px] flex-none order-2 login-card-container">
                         <div class="login-card w-full mx-auto px-6 py-6 rounded-2xl">
                             {{ $slot }}
                         </div>
